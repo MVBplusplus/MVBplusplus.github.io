@@ -447,6 +447,183 @@ body.theme-cool .back-to-top:hover {
   box-shadow: 0 0 16px rgba(0,229,255,0.4);
 }
 
+/* === 炫酷风：所有文字可读性 === */
+body.theme-cool .post-body p,
+body.theme-cool .post-body li,
+body.theme-cool .post-body span,
+body.theme-cool .post-body td,
+body.theme-cool .post-body th {
+  color: #D0E8F0;
+}
+
+body.theme-cool .post-body a,
+body.theme-cool .post-copyright a,
+body.theme-cool .post-nav a,
+body.theme-cool .post-meta a,
+body.theme-cool .category-list a,
+body.theme-cool .tag-cloud a {
+  color: #00E5FF;
+}
+
+body.theme-cool .post-body a:hover,
+body.theme-cool .post-copyright a:hover,
+body.theme-cool .post-nav a:hover,
+body.theme-cool .post-meta a:hover {
+  color: #6C63FF;
+  text-shadow: 0 0 6px rgba(108,99,255,0.4);
+}
+
+body.theme-cool .post-copyright,
+body.theme-cool .post-copyright li,
+body.theme-cool .post-copyright strong {
+  color: #B0C8D4;
+}
+
+body.theme-cool .post-copyright {
+  background: rgba(0,229,255,0.06);
+  border-left: 3px solid rgba(0,229,255,0.4);
+}
+
+body.theme-cool .post-meta-item-text,
+body.theme-cool .post-meta-item {
+  color: #6A97AC;
+}
+
+body.theme-cool .post-nav-item .nav-label,
+body.theme-cool .post-nav-title {
+  color: #8BB8CF;
+}
+
+body.theme-cool .site-state-item-count {
+  color: #00E5FF;
+}
+
+body.theme-cool .site-description {
+  color: #8BB8CF;
+}
+
+body.theme-cool .sidebar-nav li {
+  color: #6A97AC;
+}
+
+body.theme-cool .sidebar-nav li:hover {
+  color: #00E5FF;
+}
+
+body.theme-cool .footer {
+  color: #8BB8CF;
+}
+
+body.theme-cool .footer a {
+  color: #00E5FF;
+}
+
+body.theme-cool .footer .copyright {
+  color: #B0C8D4;
+}
+
+body.theme-cool .post-button .btn {
+  color: #00E5FF;
+}
+
+body.theme-cool blockquote {
+  border-left-color: rgba(0,229,255,0.4);
+  color: #8BB8CF;
+}
+
+body.theme-cool code,
+body.theme-cool pre {
+  background: rgba(0,0,0,0.4);
+  color: #8CFF98;
+}
+
+body.theme-cool .post-toc .nav-item,
+body.theme-cool .post-toc a {
+  color: #6A97AC;
+}
+
+body.theme-cool .post-toc a:hover {
+  color: #00E5FF;
+}
+
+body.theme-cool .collection-card a,
+body.theme-cool .collection .collection-header {
+  color: #00E5FF;
+}
+
+body.theme-cool .tag-cloud a {
+  color: #8BB8CF;
+}
+
+body.theme-cool .tag-cloud a:hover {
+  color: #00E5FF;
+  text-shadow: 0 0 6px rgba(0,229,255,0.5);
+}
+
+body.theme-cool .posts-expand .post-more-link a {
+  color: #00E5FF;
+}
+
+body.theme-cool .search-popup .search-result a,
+body.theme-cool .search-popup input {
+  color: #EAF8FF;
+}
+
+body.theme-cool .search-popup {
+  background: rgba(7,33,46,0.95);
+}
+
+/* === 动漫风：补充文字可读性 === */
+body.theme-anime .post-body p,
+body.theme-anime .post-body li,
+body.theme-anime .post-body span,
+body.theme-anime .post-body td,
+body.theme-anime .post-body th {
+  color: #4a154b;
+}
+
+body.theme-anime .post-body a,
+body.theme-anime .post-copyright a,
+body.theme-anime .post-nav a {
+  color: #e91e63;
+}
+
+body.theme-anime .post-copyright,
+body.theme-anime .post-copyright li,
+body.theme-anime .post-copyright strong {
+  color: #6a1b4d;
+}
+
+body.theme-anime .post-copyright {
+  background: rgba(255,105,180,0.08);
+  border-left: 3px solid rgba(255,105,180,0.4);
+}
+
+body.theme-anime .footer {
+  color: #880e4f;
+}
+
+body.theme-anime .footer a {
+  color: #e91e63;
+}
+
+body.theme-anime .footer .copyright {
+  color: #ad1457;
+}
+
+body.theme-anime .site-description {
+  color: #c2185b;
+}
+
+body.theme-anime blockquote {
+  border-left-color: rgba(255,105,180,0.4);
+}
+
+body.theme-anime code,
+body.theme-anime pre {
+  background: rgba(255,182,193,0.15);
+}
+
 /* ============================================
  * Article Navigation (prev/next)
  * ============================================ */
