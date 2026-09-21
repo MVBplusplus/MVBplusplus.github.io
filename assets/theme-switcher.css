@@ -532,9 +532,145 @@ body.theme-cool blockquote {
 }
 
 body.theme-cool code,
-body.theme-cool pre {
-  background: rgba(0,0,0,0.4);
-  color: #8CFF98;
+body.theme-cool pre,
+body.theme-cool .highlight pre,
+body.theme-cool .highlight table {
+  background: rgba(0,0,0,0.55) !important;
+  color: #B0FFC8 !important;
+  border: 1px solid rgba(0,229,255,0.15);
+  border-radius: 6px;
+}
+
+body.theme-cool .highlight .line,
+body.theme-cool .highlight span {
+  color: #B0FFC8 !important;
+}
+
+body.theme-cool .highlight .hljs-string,
+body.theme-cool .highlight .string {
+  color: #FFD93D !important;
+}
+
+body.theme-cool .highlight .hljs-keyword,
+body.theme-cool .highlight .keyword {
+  color: #00E5FF !important;
+}
+
+body.theme-cool .highlight .hljs-comment,
+body.theme-cool .highlight .comment {
+  color: #5A8A9A !important;
+}
+
+body.theme-cool .highlight .hljs-number,
+body.theme-cool .highlight .number {
+  color: #FF6BCC !important;
+}
+
+body.theme-cool .highlight .hljs-title,
+body.theme-cool .highlight .title,
+body.theme-cool .highlight .hljs-function {
+  color: #6C63FF !important;
+}
+
+body.theme-cool .highlight .hljs-built_in,
+body.theme-cool .highlight .built_in {
+  color: #69F0E2 !important;
+}
+
+body.theme-cool pre code {
+  background: transparent !important;
+  color: #B0FFC8 !important;
+  text-shadow: 0 0 2px rgba(0,229,255,0.15);
+}
+
+body.theme-cool .post-copyright a,
+body.theme-cool .post-body a,
+body.theme-cool .post-meta a,
+body.theme-cool .post-nav a,
+body.theme-cool .category-list a,
+body.theme-cool .tag-cloud a,
+body.theme-cool .footer a,
+body.theme-cool .posts-expand .post-more-link a,
+body.theme-cool .post-button .btn,
+body.theme-cool .collection-card a,
+body.theme-cool .search-result a,
+body.theme-cool .post-toc a {
+  color: #00E5FF;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(0,229,255,0.3);
+}
+
+body.theme-cool .post-copyright a:hover,
+body.theme-cool .post-body a:hover,
+body.theme-cool .post-meta a:hover,
+body.theme-cool .post-nav a:hover,
+body.theme-cool .category-list a:hover,
+body.theme-cool .tag-cloud a:hover,
+body.theme-cool .footer a:hover,
+body.theme-cool .post-button .btn:hover {
+  color: #6C63FF;
+  text-shadow: 0 0 8px rgba(108,99,255,0.5);
+}
+
+body.theme-cool .post-tags a,
+body.theme-cool .post-tags .post-tag {
+  background: rgba(0,229,255,0.12);
+  border: 1px solid rgba(0,229,255,0.25);
+  color: #00E5FF;
+  text-shadow: none;
+}
+
+body.theme-cool .post-tags a:hover {
+  background: rgba(0,229,255,0.22);
+}
+
+body.theme-cool #twikoo,
+body.theme-cool #twikoo .tk-comment,
+body.theme-cool #twikoo .tk-comments,
+body.theme-cool #twikoo .tk-meta,
+body.theme-cool #twikoo .tk-extras,
+body.theme-cool #twikoo .tk-row {
+  background: rgba(7,33,46,0.85) !important;
+  color: #D0E8F0 !important;
+}
+
+body.theme-cool #twikoo .tk-nick,
+body.theme-cool #twikoo .tk-nick-link,
+body.theme-cool #twikoo .tk-ruser {
+  color: #00E5FF !important;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(0,229,255,0.3);
+}
+
+body.theme-cool #twikoo .tk-time,
+body.theme-cool #twikoo .tk-meta {
+  color: #6A97AC !important;
+}
+
+body.theme-cool #twikoo .tk-content,
+body.theme-cool #twikoo .tk-content p {
+  color: #EAF8FF !important;
+}
+
+body.theme-cool #twikoo input,
+body.theme-cool #twikoo textarea,
+body.theme-cool #twikoo .tk-input {
+  background: rgba(0,0,0,0.3) !important;
+  color: #EAF8FF !important;
+  border: 1px solid rgba(0,229,255,0.2) !important;
+  border-radius: 6px;
+}
+
+body.theme-cool #twikoo .tk-submit button,
+body.theme-cool #twikoo button {
+  background: rgba(0,229,255,0.15) !important;
+  color: #00E5FF !important;
+  border: 1px solid rgba(0,229,255,0.3) !important;
+}
+
+body.theme-cool #twikoo .tk-submit button:hover {
+  background: rgba(0,229,255,0.25) !important;
+  box-shadow: 0 0 12px rgba(0,229,255,0.3);
 }
 
 body.theme-cool .post-toc .nav-item,
