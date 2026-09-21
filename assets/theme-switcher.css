@@ -395,13 +395,14 @@ body.theme-cool .site-state-item .site-state-item-name {
 body.theme-cool .posts-expand .post-more-link a {
   background: transparent;
   color: #00E5FF;
-  border: 1px solid #00E5FF;
-  box-shadow: 0 0 12px rgba(0,229,255,0.3);
+  border: none;
+  box-shadow: none;
 }
 
 body.theme-cool .post-more-link a:hover {
-  background: rgba(0,229,255,0.15);
-  box-shadow: 0 0 20px rgba(0,229,255,0.5);
+  background: transparent;
+  color: #6C63FF;
+  box-shadow: none;
 }
 
 body.theme-cool .post-title-link:hover {
@@ -534,53 +535,72 @@ body.theme-cool blockquote {
 body.theme-cool code,
 body.theme-cool pre,
 body.theme-cool .highlight pre,
-body.theme-cool .highlight table {
-  background: rgba(0,0,0,0.55) !important;
-  color: #B0FFC8 !important;
-  border: 1px solid rgba(0,229,255,0.15);
-  border-radius: 6px;
+body.theme-cool .highlight table,
+body.theme-cool .table-container,
+body.theme-cool .highlight .gutter,
+body.theme-cool .highlight .code,
+body.theme-cool .highlight .gutter pre,
+body.theme-cool .highlight .code pre {
+  background: #1a1a1a !important;
+  color: #e0e0e0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  text-shadow: none !important;
+}
+
+body.theme-cool .highlight,
+body.theme-cool .highlight tr,
+body.theme-cool .highlight td {
+  background: #1a1a1a !important;
+  border: none !important;
 }
 
 body.theme-cool .highlight .line,
-body.theme-cool .highlight span {
-  color: #B0FFC8 !important;
+body.theme-cool .highlight span,
+body.theme-cool .hljs-string,
+body.theme-cool .hljs-keyword,
+body.theme-cool .hljs-comment,
+body.theme-cool .hljs-number,
+body.theme-cool .hljs-title,
+body.theme-cool .hljs-built_in,
+body.theme-cool .highlight .string,
+body.theme-cool .highlight .keyword,
+body.theme-cool .highlight .comment,
+body.theme-cool .highlight .number,
+body.theme-cool .highlight .title,
+body.theme-cool .highlight .built_in {
+  color: #e0e0e0 !important;
+  text-shadow: none !important;
 }
-
-body.theme-cool .highlight .hljs-string,
-body.theme-cool .highlight .string {
-  color: #FFD93D !important;
-}
-
-body.theme-cool .highlight .hljs-keyword,
 body.theme-cool .highlight .keyword {
-  color: #00E5FF !important;
+  color: #e0e0e0 !important;
 }
 
 body.theme-cool .highlight .hljs-comment,
 body.theme-cool .highlight .comment {
-  color: #5A8A9A !important;
+  color: #888 !important;
 }
 
 body.theme-cool .highlight .hljs-number,
 body.theme-cool .highlight .number {
-  color: #FF6BCC !important;
+  color: #e0e0e0 !important;
 }
 
 body.theme-cool .highlight .hljs-title,
 body.theme-cool .highlight .title,
 body.theme-cool .highlight .hljs-function {
-  color: #6C63FF !important;
+  color: #e0e0e0 !important;
 }
 
 body.theme-cool .highlight .hljs-built_in,
 body.theme-cool .highlight .built_in {
-  color: #69F0E2 !important;
+  color: #e0e0e0 !important;
 }
 
 body.theme-cool pre code {
   background: transparent !important;
-  color: #B0FFC8 !important;
-  text-shadow: 0 0 2px rgba(0,229,255,0.15);
+  color: #e0e0e0 !important;
+  text-shadow: none !important;
 }
 
 body.theme-cool .post-copyright a,
@@ -614,14 +634,15 @@ body.theme-cool .post-button .btn:hover {
 
 body.theme-cool .post-tags a,
 body.theme-cool .post-tags .post-tag {
-  background: rgba(0,229,255,0.12);
-  border: 1px solid rgba(0,229,255,0.25);
+  background: transparent;
+  border: none;
   color: #00E5FF;
   text-shadow: none;
 }
 
 body.theme-cool .post-tags a:hover {
-  background: rgba(0,229,255,0.22);
+  background: transparent;
+  color: #6C63FF;
 }
 
 body.theme-cool #twikoo,
@@ -662,15 +683,21 @@ body.theme-cool #twikoo .tk-input {
 }
 
 body.theme-cool #twikoo .tk-submit button,
-body.theme-cool #twikoo button {
-  background: rgba(0,229,255,0.15) !important;
+body.theme-cool #twikoo button,
+body.theme-cool #twikoo .tk-sort-item,
+body.theme-cool #twikoo .tk-action-icon,
+body.theme-cool #twikoo .tk-icon {
+  background: transparent !important;
   color: #00E5FF !important;
-  border: 1px solid rgba(0,229,255,0.3) !important;
+  border: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
 }
 
-body.theme-cool #twikoo .tk-submit button:hover {
-  background: rgba(0,229,255,0.25) !important;
-  box-shadow: 0 0 12px rgba(0,229,255,0.3);
+body.theme-cool #twikoo .tk-submit button:hover,
+body.theme-cool #twikoo button:hover {
+  background: rgba(0,229,255,0.12) !important;
+  box-shadow: none !important;
 }
 
 body.theme-cool .post-toc .nav-item,
