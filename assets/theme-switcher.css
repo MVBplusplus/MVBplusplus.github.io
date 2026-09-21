@@ -1,0 +1,415 @@
+/* ============================================
+ * Theme Switcher Panel
+ * ============================================ */
+#theme-switcher-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 9998;
+  display: none;
+}
+#theme-switcher-overlay.active { display: block; }
+
+#theme-switcher-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: 9999;
+  width: 520px;
+  max-width: 92vw;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+  padding: 24px 28px 28px;
+  display: none;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+#theme-switcher-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.ts-close {
+  cursor: pointer;
+  font-size: 20px;
+  color: #999;
+  transition: color 0.2s;
+}
+.ts-close:hover { color: #333; }
+
+.ts-options {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.ts-card {
+  flex: 1;
+  cursor: pointer;
+  border: 2px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 14px 10px 16px;
+  text-align: center;
+  transition: all 0.25s ease;
+  background: #fafafa;
+}
+.ts-card:hover {
+  border-color: #bbb;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+.ts-card.selected {
+  border-color: #666;
+  box-shadow: 0 0 0 2px rgba(102,102,102,0.3);
+}
+
+.ts-preview {
+  height: 80px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Mini preview mockups */
+.ts-mini-header {
+  height: 16px;
+  background: #555;
+  margin: 6px 6px 0;
+  border-radius: 3px;
+}
+.ts-mini-lines {
+  padding: 4px 6px;
+}
+.ts-mini-line {
+  height: 5px;
+  background: #ddd;
+  border-radius: 2px;
+  margin: 4px 0;
+}
+.w70 { width: 70%; }
+.w50 { width: 50%; }
+.w60 { width: 60%; }
+
+.ts-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.ts-desc {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Preview styles */
+.ts-preview-simple { background: #f5f5f5; }
+.ts-preview-simple .ts-mini-header { background: #333; }
+
+.ts-preview-anime { background: #fff0f5; }
+.ts-preview-anime .ts-mini-header.pink { background: #ff69b4; }
+.ts-preview-anime .ts-mini-line.pink { background: #ffb6c1; }
+
+.ts-preview-cool { background: #03151d; }
+.ts-preview-cool .ts-mini-header.neon { background: linear-gradient(90deg, #00E5FF, #6C63FF); }
+.ts-preview-cool .ts-mini-line.neon { background: #00E5FF; opacity: 0.5; }
+
+/* Nav theme button */
+#theme-nav-btn {
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+#theme-nav-btn:hover { opacity: 1; }
+
+/* ============================================
+ * 动漫风 — Pink + Video Background
+ * ============================================ */
+body.theme-anime {
+  position: relative;
+}
+
+body.theme-anime #anime-bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+body.theme-anime::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,182,193,0.12), rgba(255,105,180,0.08));
+  z-index: -1;
+  pointer-events: none;
+}
+
+body.theme-anime .header,
+body.theme-anime .footer,
+body.theme-anime .sidebar-inner,
+body.theme-anime .post-block,
+body.theme-anime .posts-expand .post-body,
+body.theme-anime .category-list,
+body.theme-anime .tag-cloud,
+body.theme-anime .collection-card,
+body.theme-anime .search-popup,
+body.theme-anime #theme-switcher-panel {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+}
+
+body.theme-anime .header { border-bottom-color: #ffc0cb; }
+body.theme-anime .footer { border-top-color: #ffc0cb; }
+
+body.theme-anime a.brand,
+body.theme-anime .site-title {
+  color: #d63384;
+}
+
+body.theme-anime .menu .btn-bar,
+body.theme-anime .menu a {
+  color: #c04080;
+}
+
+body.theme-anime .menu a:hover,
+body.theme-anime .menu .active a {
+  color: #ff1493;
+}
+
+body.theme-anime .post-title,
+body.theme-anime .post-title-link {
+  color: #c2185b;
+}
+
+body.theme-anime .post-meta,
+body.theme-anime .post-nav-item,
+body.theme-anime .post-nav-title {
+  color: #e91e63;
+}
+
+body.theme-anime .sidebar .sidebar-nav,
+body.theme-anime .sidebar .site-overview {
+  color: #ad1457;
+}
+
+body.theme-anime .site-author-name,
+body.theme-anime .site-state-item .site-state-item-name {
+  color: #c2185b;
+}
+
+body.theme-anime .posts-expand .post-more-link a {
+  background: #ff69b4;
+  color: #fff;
+  border-color: #ff69b4;
+}
+
+body.theme-anime .post-more-link a:hover {
+  background: #ff1493;
+  border-color: #ff1493;
+}
+
+body.theme-anime .comments .comment-plugin-wrapper,
+body.theme-anime #twikoo {
+  background: rgba(255,255,255,0.92);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+body.theme-anime ::-webkit-scrollbar-thumb {
+  background: #ffb6c1;
+}
+
+/* ============================================
+ * 炫酷风 — Dark + Neon + Canvas Background
+ * ============================================ */
+body.theme-cool {
+  position: relative;
+  background: #03151d !important;
+}
+
+body.theme-cool #cool-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+body.theme-cool::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(3,21,29,0.7), rgba(7,51,71,0.5));
+  z-index: -1;
+  pointer-events: none;
+}
+
+body.theme-cool .header,
+body.theme-anime #anime-bg-video + * {
+  background: rgba(3,21,29,0.85) !important;
+  backdrop-filter: blur(8px);
+}
+
+body.theme-cool .footer {
+  background: rgba(3,21,29,0.85);
+  backdrop-filter: blur(8px);
+  color: #8BB8CF;
+}
+
+body.theme-cool .sidebar-inner,
+body.theme-cool .post-block,
+body.theme-cool .collection-card,
+body.theme-cool .search-popup,
+body.theme-cool #theme-switcher-panel {
+  background: rgba(7,33,46,0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,229,255,0.15);
+}
+
+body.theme-cool .header { border-bottom-color: rgba(0,229,255,0.2); }
+body.theme-cool .footer { border-top-color: rgba(0,229,255,0.2); }
+
+body.theme-cool,
+body.theme-cool .post-body,
+body.theme-cool .post-title,
+body.theme-cool .post-title-link,
+body.theme-cool .site-title,
+body.theme-cool .brand {
+  color: #EAF8FF;
+}
+
+body.theme-cool .post-meta,
+body.theme-cool .post-nav-item {
+  color: #6A97AC;
+}
+
+body.theme-cool .menu .btn-bar,
+body.theme-cool .menu a {
+  color: #8BB8CF;
+}
+
+body.theme-cool .menu a:hover,
+body.theme-cool .menu .active a {
+  color: #00E5FF;
+  text-shadow: 0 0 8px rgba(0,229,255,0.6);
+}
+
+body.theme-cool .site-author-name,
+body.theme-cool .site-state-item .site-state-item-name {
+  color: #00E5FF;
+  text-shadow: 0 0 6px rgba(0,229,255,0.4);
+}
+
+body.theme-cool .posts-expand .post-more-link a {
+  background: transparent;
+  color: #00E5FF;
+  border: 1px solid #00E5FF;
+  box-shadow: 0 0 12px rgba(0,229,255,0.3);
+}
+
+body.theme-cool .post-more-link a:hover {
+  background: rgba(0,229,255,0.15);
+  box-shadow: 0 0 20px rgba(0,229,255,0.5);
+}
+
+body.theme-cool .post-title-link:hover {
+  color: #6C63FF;
+  text-shadow: 0 0 10px rgba(108,99,255,0.6);
+}
+
+body.theme-cool .menu-item-badge {
+  background: #FF3D9A;
+}
+
+body.theme-cool .comments .comment-plugin-wrapper,
+body.theme-cool #twikoo {
+  background: rgba(7,33,46,0.9);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+body.theme-cool .post-block {
+  border-radius: 8px;
+  box-shadow: 0 0 24px rgba(0,229,255,0.08), inset 0 0 1px rgba(0,229,255,0.12);
+}
+
+body.theme-cool .sidebar {
+  background: transparent;
+}
+
+body.theme-cool ::-webkit-scrollbar-track {
+  background: #03151d;
+}
+
+body.theme-cool ::-webkit-scrollbar-thumb {
+  background: #00E5FF;
+  opacity: 0.5;
+}
+
+body.theme-cool .back-to-top {
+  background: rgba(0,229,255,0.15);
+  border-color: rgba(0,229,255,0.3);
+}
+
+body.theme-cool .back-to-top:hover {
+  box-shadow: 0 0 16px rgba(0,229,255,0.4);
+}
+
+/* ============================================
+ * Article Navigation (prev/next)
+ * ============================================ */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+}
+
+.post-nav-item {
+  flex: 1;
+  max-width: 48%;
+}
+
+.post-nav-item a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.post-nav-item .nav-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.post-nav-item .post-nav-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.post-nav-next { text-align: right; }
+.post-nav-next .nav-label::before { content: "\f061"; font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 6px; opacity: 0.5; }
+.post-nav-prev .nav-label::before { content: "\f060"; font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 6px; opacity: 0.5; }

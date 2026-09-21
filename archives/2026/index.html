@@ -64,6 +64,7 @@
 
 
 
+<link rel="stylesheet" href="/assets/theme-switcher.css">
 
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
@@ -311,6 +312,52 @@ document.addEventListener('page:loaded', () => {
   display: inline-block;
 }
 </style>
+<div id="theme-switcher-overlay"></div>
+<div id="theme-switcher-panel">
+  <div class="ts-header">
+    <span>切换风格</span>
+    <i class="fa fa-times ts-close" aria-hidden="true"></i>
+  </div>
+  <div class="ts-options">
+    <div class="ts-card" data-theme="simple">
+      <div class="ts-preview ts-preview-simple">
+        <div class="ts-mini-header"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70"></div>
+          <div class="ts-mini-line w50"></div>
+          <div class="ts-mini-line w60"></div>
+        </div>
+      </div>
+      <div class="ts-name">简约风</div>
+      <div class="ts-desc">无趣...</div>
+    </div>
+    <div class="ts-card" data-theme="anime">
+      <div class="ts-preview ts-preview-anime">
+        <div class="ts-mini-header pink"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70 pink"></div>
+          <div class="ts-mini-line w50 pink"></div>
+          <div class="ts-mini-line w60 pink"></div>
+        </div>
+      </div>
+      <div class="ts-name">动漫风</div>
+      <div class="ts-desc">二次元一股味</div>
+    </div>
+    <div class="ts-card" data-theme="cool">
+      <div class="ts-preview ts-preview-cool">
+        <div class="ts-mini-header neon"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70 neon"></div>
+          <div class="ts-mini-line w50 neon"></div>
+          <div class="ts-mini-line w60 neon"></div>
+        </div>
+      </div>
+      <div class="ts-name">炫酷风</div>
+      <div class="ts-desc">嘉豪？</div>
+    </div>
+  </div>
+</div>
+<script src="/assets/theme-switcher.js" defer></script>
 
 </body>
 </html>

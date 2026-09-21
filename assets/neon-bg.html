@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"geevanblog.xin","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Connecting Dots &#x2F;&#x2F; Neon Network    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#03151d}   canvas{display:block;width:100%;height:100%}      &quot;use strict&quot;; (() &#x3D;&gt; {   const">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GeEvan&#39;s Blog——我的一张真值表">
+<meta property="og:url" content="https://geevanblog.xin/assets/neon-bg.html">
+<meta property="og:site_name" content="GeEvan&#39;s Blog——我的一张真值表">
+<meta property="og:description" content="Connecting Dots &#x2F;&#x2F; Neon Network    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#03151d}   canvas{display:block;width:100%;height:100%}      &quot;use strict&quot;; (() &#x3D;&gt; {   const">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-09-21T07:27:17.777Z">
+<meta property="article:modified_time" content="2026-09-21T07:27:04.920Z">
+<meta property="article:author" content="EvanGe">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://geevanblog.xin/assets/neon-bg">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":true,"permalink":"https://geevanblog.xin/assets/neon-bg.html","path":"assets/neon-bg.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | GeEvan's Blog——我的一张真值表
+</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.loli.net/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/assets/theme-switcher.css">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeEvan's Blog——我的一张真值表</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">1</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">EvanGe</p>
+  <div class="site-description" itemprop="description">Cast a cold eye on life, on death<br>有关科技，有关自由，有关美。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Connecting Dots // Neon Network</title>
+<style>
+  html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#03151d}
+  canvas{display:block;width:100%;height:100%}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+"use strict";
+(() => {
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+
+  const TAU = Math.PI * 2;
+  const palettes = {
+    aurora: ["#69F0E2", "#54B8FF", "#A678FF", "#D9FFF6", "#6BE7C8"],
+    cyber:  ["#00E5FF", "#6C63FF", "#FF3D9A", "#8CFF98", "#FFFFFF"],
+    sunset: ["#FF7A68", "#FFB35C", "#FFE38B", "#D779FF", "#FF5A9E"],
+    mono:   ["#EAF8FF", "#B7D7E8", "#8BB8CF", "#6A97AC", "#FFFFFF"]
+  };
+
+  const settings = {
+    particleAmount: 150,
+    particleSize: 3.4,
+    speed: 18,
+    connectionRadius: 175,
+    lineOpacity: 0.62,
+    lineWidth: 1.15,
+    glow: 0.42,
+    backgroundColor: "#03151d",
+    backgroundAccent: "#073347",
+    customParticleColor: "#64E9D8",
+    theme: "aurora",
+    mouseInteraction: true,
+    mouseRadius: 180,
+    mouseStrength: 38,
+    audioReactive: true,
+    audioStrength: 55,
+    targetFps: 60,
+    subtlePulse: true,
+    adaptiveQuality: true,
+    oledDeepBlack: false
+  };
+
+  let cssW = 1, cssH = 1, dpr = 1;
+  let particles = [];
+  let grid = new Map();
+  let cols = 1, rows = 1, cellSize = settings.connectionRadius;
+  let lastTime = performance.now();
+  let frameAccumulator = 0;
+  let audioLevel = 0;
+  let audioTarget = 0;
+  let qualityScale = 1;
+  let slowFrames = 0;
+  let mouse = { x: -9999, y: -9999, active: false };
+
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+  function lerp(a,b,t){ return a + (b-a)*t; }
+
+  function parseWEColor(value, fallback) {
+    if (!value) return fallback;
+    if (value[0] === "#") return value;
+    const p = String(value).trim().split(/\s+/).map(Number);
+    if (p.length < 3 || p.some(Number.isNaN)) return fallback;
+    const c = p.slice(0,3).map(v => Math.round(clamp(v,0,1)*255).toString(16).padStart(2,"0"));
+    return "#" + c.join("");
+  }
+
+  function hexToRgb(hex) {
+    const n = parseInt(hex.replace("#", ""), 16);
+    return { r:(n>>16)&255, g:(n>>8)&255, b:n&255 };
+  }
+
+  function rgbCss(hex, alpha=1){
+    const c = hexToRgb(hex);
+    return `rgba(${c.r},${c.g},${c.b},${alpha})`;
+  }
+
+  function currentPalette(){
+    if (settings.theme === "custom") {
+      const base = settings.customParticleColor;
+      return [base, "#FFFFFF", base, "#BDEFFF", base];
+    }
+    return palettes[settings.theme] || palettes.aurora;
+  }
+
+  function randomParticleColor(){
+    const p = currentPalette();
+    return p[(Math.random()*p.length)|0];
+  }
+
+  class Particle {
+    constructor(x=Math.random()*cssW, y=Math.random()*cssH) {
+      this.x = x; this.y = y;
+      this.baseRadius = settings.particleSize * (0.58 + Math.random()*0.78);
+      this.radius = this.baseRadius;
+      this.phase = Math.random()*TAU;
+      this.color = randomParticleColor();
+      const angle = Math.random()*TAU;
+      const vel = settings.speed * (0.7 + Math.random()*0.55);
+      this.vx = Math.cos(angle)*vel;
+      this.vy = Math.sin(angle)*vel;
+    }
+    update(dt, t) {
+      const targetSpeed = settings.speed;
+      const speedNow = Math.hypot(this.vx, this.vy) || 1;
+      const desired = targetSpeed * (0.7 + 0.55*((Math.sin(this.phase)+1)*0.5));
+      const correction = clamp((desired - speedNow) * dt * 0.5, -0.2, 0.2);
+      this.vx += (this.vx/speedNow)*correction;
+      this.vy += (this.vy/speedNow)*correction;
+
+      if (settings.mouseInteraction && mouse.active) {
+        const dx = this.x - mouse.x, dy = this.y - mouse.y;
+        const d2 = dx*dx + dy*dy;
+        const r = settings.mouseRadius;
+        if (d2 > 1 && d2 < r*r) {
+          const d = Math.sqrt(d2);
+          const f = (1 - d/r) * settings.mouseStrength * dt;
+          this.vx += (dx/d)*f;
+          this.vy += (dy/d)*f;
+        }
+      }
+
+      this.x += this.vx*dt;
+      this.y += this.vy*dt;
+
+      const pad = 2;
+      if (this.x < -pad) { this.x = -pad; this.vx = Math.abs(this.vx); }
+      else if (this.x > cssW+pad) { this.x = cssW+pad; this.vx = -Math.abs(this.vx); }
+      if (this.y < -pad) { this.y = -pad; this.vy = Math.abs(this.vy); }
+      else if (this.y > cssH+pad) { this.y = cssH+pad; this.vy = -Math.abs(this.vy); }
+
+      const pulse = settings.subtlePulse ? (0.92 + 0.08*Math.sin(t*0.0015 + this.phase)) : 1;
+      const audio = settings.audioReactive ? 1 + audioLevel * settings.audioStrength/100 * 0.75 : 1;
+      this.radius = this.baseRadius * pulse * audio;
+    }
+    draw(){
+      if (settings.glow > 0.02) {
+        const glowRadius = this.radius * (2.0 + settings.glow*2.6);
+        ctx.fillStyle = rgbCss(this.color, 0.055*settings.glow);
+        ctx.beginPath(); ctx.arc(this.x,this.y,glowRadius,0,TAU); ctx.fill();
+        ctx.fillStyle = rgbCss(this.color, 0.11*settings.glow);
+        ctx.beginPath(); ctx.arc(this.x,this.y,this.radius*(1.35+settings.glow),0,TAU); ctx.fill();
+      }
+      ctx.fillStyle = this.color;
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,TAU); ctx.fill();
+      ctx.fillStyle = "rgba(255,255,255,0.42)";
+      ctx.beginPath(); ctx.arc(this.x-this.radius*0.25,this.y-this.radius*0.25,Math.max(0.45,this.radius*0.22),0,TAU); ctx.fill();
+    }
+  }
+
+  function resize() {
+    cssW = Math.max(1, window.innerWidth);
+    cssH = Math.max(1, window.innerHeight);
+    const maxDpr = settings.adaptiveQuality ? 1.6 : 2;
+    dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+    canvas.width = Math.floor(cssW*dpr);
+    canvas.height = Math.floor(cssH*dpr);
+    canvas.style.width = cssW + "px";
+    canvas.style.height = cssH + "px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    rebuildParticles(true);
+  }
+
+  function rebuildParticles(preserve=false) {
+    const target = Math.max(10, Math.round(settings.particleAmount * qualityScale));
+    if (!preserve || particles.length === 0) particles = [];
+    while (particles.length < target) particles.push(new Particle());
+    if (particles.length > target) particles.length = target;
+    for (const p of particles) {
+      p.baseRadius = settings.particleSize * (0.58 + Math.random()*0.78);
+      if (!preserve) p.color = randomParticleColor();
+      p.x = clamp(p.x, 0, cssW); p.y = clamp(p.y, 0, cssH);
+    }
+    rebuildGrid();
+  }
+
+  function recolorParticles(){ for (const p of particles) p.color = randomParticleColor(); }
+
+  function rebuildGrid(){
+    cellSize = Math.max(40, settings.connectionRadius);
+    cols = Math.max(1, Math.ceil(cssW/cellSize));
+    rows = Math.max(1, Math.ceil(cssH/cellSize));
+    grid = new Map();
+  }
+
+  function buildGrid(){
+    grid.clear();
+    for (let i=0; i<particles.length; i++) {
+      const p = particles[i];
+      const cx = clamp(Math.floor(p.x/cellSize),0,cols-1);
+      const cy = clamp(Math.floor(p.y/cellSize),0,rows-1);
+      const key = cy*cols + cx;
+      let bucket = grid.get(key);
+      if (!bucket) grid.set(key, bucket=[]);
+      bucket.push(i);
+      p.cx = cx; p.cy = cy;
+    }
+  }
+
+  function drawBackground(t){
+    if (settings.oledDeepBlack) {
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0,0,cssW,cssH);
+      return;
+    }
+
+    const g = ctx.createLinearGradient(0,0,cssW,cssH);
+    g.addColorStop(0, settings.backgroundColor);
+    g.addColorStop(0.52, settings.backgroundAccent);
+    g.addColorStop(1, settings.backgroundColor);
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,cssW,cssH);
+
+    const pulse = settings.subtlePulse ? (0.5 + 0.5*Math.sin(t*0.00018)) : 0.5;
+    const halo = ctx.createRadialGradient(cssW*0.72,cssH*0.28,0,cssW*0.72,cssH*0.28,Math.max(cssW,cssH)*0.78);
+    halo.addColorStop(0, rgbCss(currentPalette()[1], 0.055 + pulse*0.015));
+    halo.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = halo; ctx.fillRect(0,0,cssW,cssH);
+  }
+
+  function drawConnections(){
+    const maxD2 = settings.connectionRadius * settings.connectionRadius;
+    const audioBoost = settings.audioReactive ? 1 + audioLevel*0.6 : 1;
+    ctx.lineWidth = settings.lineWidth;
+
+    for (let i=0; i<particles.length; i++) {
+      const a = particles[i];
+      for (let oy=-1; oy<=1; oy++) {
+        const y = a.cy+oy; if (y<0 || y>=rows) continue;
+        for (let ox=-1; ox<=1; ox++) {
+          const x = a.cx+ox; if (x<0 || x>=cols) continue;
+          const bucket = grid.get(y*cols+x); if (!bucket) continue;
+          for (const j of bucket) {
+            if (j <= i) continue;
+            const b = particles[j];
+            const dx=b.x-a.x, dy=b.y-a.y, d2=dx*dx+dy*dy;
+            if (d2 >= maxD2) continue;
+            const proximity = 1 - d2/maxD2;
+            const alpha = proximity*proximity * settings.lineOpacity * audioBoost;
+            if (alpha < 0.012) continue;
+            ctx.strokeStyle = rgbCss(a.color, clamp(alpha,0,0.88));
+            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+          }
+        }
+      }
+    }
+  }
+
+  function render(now){
+    requestAnimationFrame(render);
+    const frameMs = now-lastTime;
+    lastTime = now;
+    const minFrame = settings.targetFps > 0 ? 1000/settings.targetFps : 0;
+    frameAccumulator += frameMs;
+    if (minFrame && frameAccumulator < minFrame) return;
+    const elapsed = frameAccumulator || frameMs;
+    frameAccumulator = 0;
+    const dt = clamp(elapsed/1000, 0.001, 0.045);
+
+    audioLevel = lerp(audioLevel, audioTarget, 0.12);
+    audioTarget *= 0.93;
+
+    drawBackground(now);
+    for (const p of particles) p.update(dt, now);
+    buildGrid();
+    drawConnections();
+    for (const p of particles) p.draw();
+
+    if (settings.adaptiveQuality) {
+      if (elapsed > 28) slowFrames++; else slowFrames = Math.max(0, slowFrames-2);
+      if (slowFrames > 120 && qualityScale > 0.62) {
+        qualityScale = Math.max(0.62, qualityScale-0.08);
+        slowFrames = 0;
+        rebuildParticles(true);
+      }
+    }
+  }
+
+  window.addEventListener("resize", resize, {passive:true});
+  window.addEventListener("mousemove", e => { mouse.x=e.clientX; mouse.y=e.clientY; mouse.active=true; }, {passive:true});
+  window.addEventListener("mouseleave", () => { mouse.active=false; }, {passive:true});
+
+  if (typeof window.wallpaperRegisterAudioListener === "function") {
+    window.wallpaperRegisterAudioListener(data => {
+      if (!data || !data.length) return;
+      let sum=0;
+      const n=data.length;
+      for (let i=0;i<n;i+=2) sum += data[i]*data[i];
+      audioTarget = clamp(Math.sqrt(sum/Math.max(1,n/2))*1.85, 0, 1);
+    });
+  }
+
+  function prop(properties, key, fn){ if (properties[key] !== undefined) fn(properties[key].value); }
+
+  window.wallpaperPropertyListener = {
+    applyUserProperties(properties) {
+      let particleReset=false, gridReset=false, recolor=false, resizeNeeded=false;
+      prop(properties,"particles",v=>{settings.particleAmount=Number(v); particleReset=true;});
+      prop(properties,"radius",v=>{settings.particleSize=Number(v); particleReset=true;});
+      prop(properties,"speed",v=>{settings.speed=Number(v)*1.35;});
+      prop(properties,"connectionRadius",v=>{settings.connectionRadius=Number(v); gridReset=true;});
+      prop(properties,"lineOpacity",v=>{settings.lineOpacity=Number(v)/100;});
+      prop(properties,"lineWidth",v=>{settings.lineWidth=Number(v)/10;});
+      prop(properties,"glow",v=>{settings.glow=Number(v)/100;});
+      prop(properties,"schemecolor",v=>{settings.backgroundColor=parseWEColor(v,settings.backgroundColor);});
+      prop(properties,"backgroundAccent",v=>{settings.backgroundAccent=parseWEColor(v,settings.backgroundAccent);});
+      prop(properties,"particleColor",v=>{settings.customParticleColor=parseWEColor(v,settings.customParticleColor); recolor=true;});
+      prop(properties,"theme",v=>{settings.theme=String(v); recolor=true;});
+      prop(properties,"mouseInteraction",v=>{settings.mouseInteraction=!!v;});
+      prop(properties,"mouseRadius",v=>{settings.mouseRadius=Number(v);});
+      prop(properties,"mouseStrength",v=>{settings.mouseStrength=Number(v);});
+      prop(properties,"audioReactive",v=>{settings.audioReactive=!!v;});
+      prop(properties,"audioStrength",v=>{settings.audioStrength=Number(v);});
+      prop(properties,"subtlePulse",v=>{settings.subtlePulse=!!v;});
+      prop(properties,"fpsLimit",v=>{settings.targetFps=Number(v);});
+      prop(properties,"adaptiveQuality",v=>{settings.adaptiveQuality=!!v; qualityScale=1; particleReset=true; resizeNeeded=true;});
+      prop(properties,"oledDeepBlack",v=>{settings.oledDeepBlack=!!v;});
+      if (resizeNeeded) resize();
+      else {
+        if (gridReset) rebuildGrid();
+        if (particleReset) rebuildParticles(true);
+        if (recolor) recolorParticles();
+      }
+    }
+  };
+
+  resize();
+  requestAnimationFrame(render);
+})();
+</script>
+</body>
+</html>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">EvanGe</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://geevan-twikoo.netlify.app/.netlify/functions/twikoo","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+<div id="theme-switcher-overlay"></div>
+<div id="theme-switcher-panel">
+  <div class="ts-header">
+    <span>切换风格</span>
+    <i class="fa fa-times ts-close" aria-hidden="true"></i>
+  </div>
+  <div class="ts-options">
+    <div class="ts-card" data-theme="simple">
+      <div class="ts-preview ts-preview-simple">
+        <div class="ts-mini-header"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70"></div>
+          <div class="ts-mini-line w50"></div>
+          <div class="ts-mini-line w60"></div>
+        </div>
+      </div>
+      <div class="ts-name">简约风</div>
+      <div class="ts-desc">无趣...</div>
+    </div>
+    <div class="ts-card" data-theme="anime">
+      <div class="ts-preview ts-preview-anime">
+        <div class="ts-mini-header pink"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70 pink"></div>
+          <div class="ts-mini-line w50 pink"></div>
+          <div class="ts-mini-line w60 pink"></div>
+        </div>
+      </div>
+      <div class="ts-name">动漫风</div>
+      <div class="ts-desc">二次元一股味</div>
+    </div>
+    <div class="ts-card" data-theme="cool">
+      <div class="ts-preview ts-preview-cool">
+        <div class="ts-mini-header neon"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70 neon"></div>
+          <div class="ts-mini-line w50 neon"></div>
+          <div class="ts-mini-line w60 neon"></div>
+        </div>
+      </div>
+      <div class="ts-name">炫酷风</div>
+      <div class="ts-desc">嘉豪？</div>
+    </div>
+  </div>
+</div>
+<script src="/assets/theme-switcher.js" defer></script>
+
+</body>
+</html>
