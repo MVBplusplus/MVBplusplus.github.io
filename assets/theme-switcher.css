@@ -829,9 +829,10 @@ body.theme-anime pre {
 /* ============================================
  * 打赏文案点击后才显示
  * ============================================ */
-.reward-comment {
+.reward-container > div:first-child {
   display: none;
 }
-.reward.active .reward-comment {
+.post-reward.active ~ div,
+.reward-container:has(.post-reward.active) > div:first-child {
   display: block;
 }
