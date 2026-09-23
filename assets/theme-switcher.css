@@ -825,3 +825,13 @@ body.theme-anime pre {
 .post-nav-next { text-align: right; }
 .post-nav-next .nav-label::before { content: "\f061"; font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 6px; opacity: 0.5; }
 .post-nav-prev .nav-label::before { content: "\f060"; font-family: "Font Awesome 6 Free"; font-weight: 900; margin-right: 6px; opacity: 0.5; }
+
+/* ============================================
+ * 打赏文案点击后才显示
+ * ============================================ */
+.reward-comment {
+  display: none;
+}
+.reward.active .reward-comment {
+  display: block;
+}
