@@ -1,0 +1,366 @@
+/* ============================================
+ * 邮件订阅组件
+ * 依赖：NexT 主题 CSS 变量；动漫/炫酷风由 body 类名控制
+ * ============================================ */
+
+/* 仅供读屏软件的标签 */
+.site-subscribe-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- 侧边栏订阅卡片 ---------- */
+.site-subscribe {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--box-border-color, #eee);
+}
+
+.site-subscribe-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.site-subscribe-icon {
+  font-size: 14px;
+  color: var(--link-color, #0e83cd);
+}
+
+.site-subscribe-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color, #333);
+}
+
+.site-subscribe-desc {
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-color, #777);
+}
+
+.site-subscribe-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-subscribe-input {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: var(--text-color, #333);
+  background: var(--content-bg-color, #fff);
+  border: 1px solid var(--box-border-color, #ddd);
+  border-radius: 4px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.site-subscribe-input::placeholder {
+  color: var(--text-color, #aaa);
+  opacity: 0.6;
+}
+
+.site-subscribe-input:focus {
+  outline: none;
+  border-color: var(--link-color, #0e83cd);
+  box-shadow: 0 0 0 3px rgba(14, 131, 205, 0.15);
+}
+
+.site-subscribe-btn {
+  min-height: 44px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--btn-default-color, #fff);
+  background: var(--btn-default-bg, #222);
+  border: 1px solid var(--btn-default-bg, #222);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s, background-color 0.2s;
+}
+
+.site-subscribe-btn:hover {
+  opacity: 0.85;
+}
+
+.site-subscribe-btn:active {
+  transform: translateY(1px);
+}
+
+.site-subscribe-btn:focus-visible {
+  outline: 2px solid var(--link-color, #0e83cd);
+  outline-offset: 2px;
+}
+
+.site-subscribe-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-color, #999);
+  opacity: 0.85;
+}
+
+.site-subscribe-rss {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--link-color, #0e83cd);
+  text-decoration: none;
+}
+
+.site-subscribe-rss:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 文章底部订阅引导 ---------- */
+.post-subscribe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 22px;
+  margin: 26px 0 6px;
+  padding: 18px 20px;
+  background: var(--content-bg-color, #fafafa);
+  border: 1px solid var(--box-border-color, #e5e5e5);
+  border-radius: 8px;
+}
+
+.post-subscribe-copy {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.post-subscribe-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color, #333);
+}
+
+.post-subscribe-title i {
+  color: var(--link-color, #0e83cd);
+}
+
+.post-subscribe-desc {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-color, #777);
+}
+
+.post-subscribe-form {
+  display: flex;
+  flex: 1 1 320px;
+  gap: 8px;
+}
+
+.post-subscribe-form .site-subscribe-input {
+  flex: 1 1 auto;
+  width: auto;
+}
+
+.post-subscribe-form .site-subscribe-btn {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.post-subscribe-foot {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text-color, #999);
+  opacity: 0.85;
+}
+
+.post-subscribe-foot a {
+  color: var(--link-color, #0e83cd);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.post-subscribe-foot a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================
+ * 动漫风
+ * ============================================ */
+body.theme-anime .site-subscribe {
+  border-top-color: rgba(255, 105, 180, 0.25);
+}
+
+body.theme-anime .site-subscribe-icon,
+body.theme-anime .post-subscribe-title i {
+  color: #d63384;
+}
+
+body.theme-anime .site-subscribe-title,
+body.theme-anime .post-subscribe-title {
+  color: #c2185b;
+}
+
+body.theme-anime .site-subscribe-desc,
+body.theme-anime .post-subscribe-desc {
+  color: #8a3b5c;
+}
+
+body.theme-anime .site-subscribe-input {
+  color: #5c1f38;
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 105, 180, 0.35);
+}
+
+body.theme-anime .site-subscribe-input::placeholder {
+  color: #b56585;
+}
+
+body.theme-anime .site-subscribe-input:focus {
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+body.theme-anime .site-subscribe-btn {
+  color: #fff;
+  background: #ff69b4;
+  border-color: #ff69b4;
+}
+
+body.theme-anime .site-subscribe-btn:hover {
+  background: #ff1493;
+  border-color: #ff1493;
+}
+
+body.theme-anime .site-subscribe-btn:focus-visible {
+  outline-color: #ff1493;
+}
+
+body.theme-anime .site-subscribe-note,
+body.theme-anime .post-subscribe-foot {
+  color: #ad1457;
+}
+
+body.theme-anime .site-subscribe-rss,
+body.theme-anime .post-subscribe-foot a {
+  color: #d63384;
+}
+
+body.theme-anime .post-subscribe {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 105, 180, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================
+ * 炫酷风
+ * ============================================ */
+body.theme-cool .site-subscribe {
+  border-top-color: rgba(0, 229, 255, 0.18);
+}
+
+body.theme-cool .site-subscribe-title,
+body.theme-cool .post-subscribe-title,
+body.theme-cool .site-subscribe-icon,
+body.theme-cool .post-subscribe-title i {
+  color: #00e5ff;
+}
+
+body.theme-cool .site-subscribe-desc,
+body.theme-cool .post-subscribe-desc {
+  color: #8bb8cf;
+}
+
+body.theme-cool .site-subscribe-input {
+  color: #eaf8ff;
+  background: rgba(3, 21, 29, 0.65);
+  border-color: rgba(0, 229, 255, 0.25);
+}
+
+body.theme-cool .site-subscribe-input::placeholder {
+  color: #6a97ac;
+}
+
+body.theme-cool .site-subscribe-input:focus {
+  border-color: #00e5ff;
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.18);
+}
+
+body.theme-cool .site-subscribe-btn {
+  color: #03151d;
+  font-weight: 600;
+  background: linear-gradient(90deg, #00e5ff, #6c63ff);
+  border-color: rgba(0, 229, 255, 0.6);
+}
+
+body.theme-cool .site-subscribe-btn:hover {
+  opacity: 1;
+  filter: brightness(1.1);
+}
+
+body.theme-cool .site-subscribe-btn:focus-visible {
+  outline-color: #00e5ff;
+}
+
+body.theme-cool .site-subscribe-note,
+body.theme-cool .post-subscribe-foot {
+  color: #8bb8cf;
+}
+
+body.theme-cool .site-subscribe-rss,
+body.theme-cool .post-subscribe-foot a {
+  color: #00e5ff;
+}
+
+body.theme-cool .post-subscribe {
+  background: rgba(7, 33, 46, 0.55);
+  border-color: rgba(0, 229, 255, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================
+ * 响应式与动效偏好
+ * ============================================ */
+@media (max-width: 767px) {
+  .post-subscribe {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+  }
+
+  .post-subscribe-form {
+    flex-direction: column;
+  }
+
+  .post-subscribe-form .site-subscribe-input,
+  .post-subscribe-form .site-subscribe-btn {
+    width: 100%;
+  }
+
+  .post-subscribe-foot {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-subscribe-input,
+  .site-subscribe-btn {
+    transition: none;
+  }
+}
