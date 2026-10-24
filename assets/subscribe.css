@@ -48,6 +48,22 @@
   color: var(--text-color, #777);
 }
 
+/* 订阅步骤列表（侧边栏 / 文章底部共用基础样式） */
+.site-subscribe-steps,
+.post-subscribe-steps {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-color, #555);
+}
+
+.site-subscribe-steps li,
+.post-subscribe-steps li {
+  margin: 2px 0;
+  padding-left: 2px;
+}
+
 .site-subscribe-form {
   display: flex;
   flex-direction: column;
@@ -163,6 +179,11 @@
   color: var(--text-color, #777);
 }
 
+.post-subscribe-steps {
+  margin-top: 6px;
+  font-size: 12.5px;
+}
+
 .post-subscribe-form {
   display: flex;
   flex: 1 1 320px;
@@ -217,7 +238,9 @@ body.theme-anime .post-subscribe-title {
 }
 
 body.theme-anime .site-subscribe-desc,
-body.theme-anime .post-subscribe-desc {
+body.theme-anime .post-subscribe-desc,
+body.theme-anime .site-subscribe-steps,
+body.theme-anime .post-subscribe-steps {
   color: #8a3b5c;
 }
 
@@ -282,7 +305,9 @@ body.theme-cool .post-subscribe-title i {
 }
 
 body.theme-cool .site-subscribe-desc,
-body.theme-cool .post-subscribe-desc {
+body.theme-cool .post-subscribe-desc,
+body.theme-cool .site-subscribe-steps,
+body.theme-cool .post-subscribe-steps {
   color: #8bb8cf;
 }
 
