@@ -40,7 +40,22 @@
     video.preload = 'auto';
     video.setAttribute('webkit-playsinline', '');
     document.body.insertBefore(video, document.body.firstChild);
+    ensureAnimePosterLayer();
     bindAnimePlayback(video);
+  }
+
+  // 视频下载完成前用 poster 做缓慢缩放/平移动画，保证切换后立刻有动态背景
+  function ensureAnimePosterLayer() {
+    if (document.getElementById('anime-bg-poster-layer')) return;
+    var layer = document.createElement('div');
+    layer.id = 'anime-bg-poster-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(layer);
+  }
+
+  function hideAnimePosterLayer() {
+    var layer = document.getElementById('anime-bg-poster-layer');
+    if (layer) layer.classList.add('is-hidden');
   }
 
   function resumeAnimeVideo() {
@@ -55,6 +70,7 @@
   function bindAnimePlayback(video) {
     video.addEventListener('canplay', resumeAnimeVideo);
     video.addEventListener('loadeddata', resumeAnimeVideo);
+    video.addEventListener('playing', hideAnimePosterLayer);
     if (!animeRetryBound) {
       animeRetryBound = true;
       ['click', 'touchstart', 'keydown'].forEach(function (evt) {
@@ -70,6 +86,8 @@
   function removeAnimeBg() {
     var el = document.getElementById('anime-bg-video');
     if (el) el.remove();
+    var layer = document.getElementById('anime-bg-poster-layer');
+    if (layer) layer.remove();
   }
 
   function ensureCoolBg() {

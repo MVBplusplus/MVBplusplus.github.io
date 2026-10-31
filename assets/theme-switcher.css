@@ -149,9 +149,37 @@ body.theme-anime #anime-bg-video {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
-  z-index: -2;
+  z-index: -3;
   opacity: 0.55;
   pointer-events: none;
+}
+
+/* 视频就绪前先动起来的 poster 层（纯 CSS 缓慢推拉） */
+body.theme-anime #anime-bg-poster-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: url('/assets/anime-bg-poster.jpg') center / cover no-repeat;
+  opacity: 0.55;
+  pointer-events: none;
+  animation: anime-bg-drift 9s ease-in-out infinite alternate;
+  transition: opacity 0.6s ease;
+}
+
+body.theme-anime #anime-bg-poster-layer.is-hidden {
+  opacity: 0;
+}
+
+@keyframes anime-bg-drift {
+  from {
+    transform: scale(1.05) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-2%, -1.5%, 0);
+  }
 }
 
 body.theme-anime::before {
