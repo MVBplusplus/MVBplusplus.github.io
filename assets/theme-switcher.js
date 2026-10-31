@@ -3,6 +3,7 @@
 
   var STORAGE_KEY = 'blog-theme';
   var currentTheme = localStorage.getItem(STORAGE_KEY) || 'simple';
+  var animeRetryBound = false;
 
   function applyTheme(theme) {
     document.body.classList.remove('theme-simple', 'theme-anime', 'theme-cool');
@@ -31,16 +32,39 @@
     var video = document.createElement('video');
     video.id = 'anime-bg-video';
     video.src = '/assets/anime-bg.mp4';
+    video.poster = '/assets/anime-bg-poster.jpg';
     video.autoplay = true;
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
+    video.preload = 'auto';
     video.setAttribute('webkit-playsinline', '');
     document.body.insertBefore(video, document.body.firstChild);
+    bindAnimePlayback(video);
+  }
+
+  function resumeAnimeVideo() {
+    var video = document.getElementById('anime-bg-video');
+    if (!video || document.visibilityState === 'hidden') return;
     var playPromise = video.play();
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(function () {});
     }
+  }
+
+  function bindAnimePlayback(video) {
+    video.addEventListener('canplay', resumeAnimeVideo);
+    video.addEventListener('loadeddata', resumeAnimeVideo);
+    if (!animeRetryBound) {
+      animeRetryBound = true;
+      ['click', 'touchstart', 'keydown'].forEach(function (evt) {
+        document.addEventListener(evt, resumeAnimeVideo, { passive: true });
+      });
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') resumeAnimeVideo();
+      });
+    }
+    resumeAnimeVideo();
   }
 
   function removeAnimeBg() {

@@ -138,6 +138,8 @@
  * ============================================ */
 body.theme-anime {
   position: relative;
+  /* 视频/poster 尚未就绪时的兜底底色，避免出现纯白背景 */
+  background: linear-gradient(135deg, #ffe4ef 0%, #ffd9ec 45%, #ffeef6 100%);
 }
 
 body.theme-anime #anime-bg-video {
