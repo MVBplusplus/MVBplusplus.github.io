@@ -12,7 +12,41 @@
     <![CDATA[Cast a cold eye on life, on death<br>有关科技，有关自由，有关美。]]>
   </subtitle>
   <title>GeEvan's Blog——我的一张真值表</title>
-  <updated>2026-10-24T15:47:09.701Z</updated>
+  <updated>2026-10-31T04:23:50.983Z</updated>
+  <entry>
+    <author>
+      <name>EvanGe</name>
+    </author>
+    <category term="算法" scheme="https://geevanblog.xin/categories/%E7%AE%97%E6%B3%95/"/>
+    <category term="Tarjan" scheme="https://geevanblog.xin/tags/Tarjan/"/>
+    <category term="图论" scheme="https://geevanblog.xin/tags/%E5%9B%BE%E8%AE%BA/"/>
+    <category term="连通性" scheme="https://geevanblog.xin/tags/%E8%BF%9E%E9%80%9A%E6%80%A7/"/>
+    <category term="割点割边" scheme="https://geevanblog.xin/tags/%E5%89%B2%E7%82%B9%E5%89%B2%E8%BE%B9/"/>
+    <category term="缩点" scheme="https://geevanblog.xin/tags/%E7%BC%A9%E7%82%B9/"/>
+    <category term="eDCC" scheme="https://geevanblog.xin/tags/eDCC/"/>
+    <category term="vDCC" scheme="https://geevanblog.xin/tags/vDCC/"/>
+    <category term="SCC" scheme="https://geevanblog.xin/tags/SCC/"/>
+    <id>https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/</id>
+    <link href="https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/"/>
+    <published>2026-10-31T04:20:29.000Z</published>
+    <summary>
+      <![CDATA[<h2 id="基本变量"><a href="#基本变量" class="headerlink" title="基本变量"></a>基本变量</h2><ul>
+<li><code>dfn[u]</code>：搜索时间戳（DFS 序）</li>
+<li><code>low[u]</code>：能回溯到的最早时间戳</li>
+</ul>
+<p><code>low[u]</code> 的更新：</p>
+<ol>
+<li>初始化：<code>low[u] = dfn[u]</code></li>
+<li>树边 <code>u → v</code>（<code>u = fa(v)</code>）：回溯时更新，<code>low[v]</code> 已知<br><code>low[u] = min(low[u], low[v])</code></li>
+<li>非树边 <code>(u, v) ∉ dfs_tree</code>：<br><code>low[u] = min(low[u], dfn[v])</code></li>
+</ol>
+<blockquote>
+<p><strong>以下内容注重算法和代码，基本概念定义请自行搜索了解。</strong></p>
+</blockquote>]]>
+    </summary>
+    <title>Tarjan大家族</title>
+    <updated>2026-10-31T04:23:50.983Z</updated>
+  </entry>
   <entry>
     <author>
       <name>EvanGe</name>
@@ -22,7 +56,9 @@
     <published>2026-10-24T15:47:09.000Z</published>
     <summary>
       <![CDATA[<h2 id="What"><a href="#What" class="headerlink" title="What?"></a>What?</h2><p>   Hi~ 朋友ヾ(•ω•&#96;)o</p>
-<p>   如你所见，这是一个博客网站，内容源于个人思考（保证内容不]]>
+<p>   如你所见，这是一个博客网站，内容源于个人思考（保证内容不会完全由 AI 生成）。</p>
+<p>  具体将包括一些<del>无技术含量</del>的技术内容和学习笔记，一些<del>日本动画片</del>文艺作品的鉴赏、杂谈与评价，一些数学计算机等各领域神秘有趣  的小 research&#x2F;skill，一些关于 zz、社会生活的观点见解，再加上我脑海里各种疯狂的想法(anything)（阅读这个博客，你就会知道，当三次元的 GeEvan 带着仿佛刚完春运的传奇机长般空洞的眼神经过你时，他的大脑正在发生什么变化……）</p>
+<p>   总之这是一个多元内容的博客，不是单纯让人Orz的题解分享&#x2F;技术分享博客。</p>]]>
     </summary>
     <title>关于这个博客——what,why,how</title>
     <updated>2026-10-24T15:47:09.701Z</updated>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"geevanblog.xin","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.29.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"language":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="基本变量 dfn[u]：搜索时间戳（DFS 序） low[u]：能回溯到的最早时间戳  low[u] 的更新：  初始化：low[u] &#x3D; dfn[u] 树边 u → v（u &#x3D; fa(v)）：回溯时更新，low[v] 已知low[u] &#x3D; min(low[u], low[v]) 非树边 (u, v) ∉ dfs_tree：low[u] &#x3D; min(low[u], dfn[v])   以下内容注重">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan大家族">
+<meta property="og:url" content="https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/index.html">
+<meta property="og:site_name" content="GeEvan&#39;s Blog——我的一张真值表">
+<meta property="og:description" content="基本变量 dfn[u]：搜索时间戳（DFS 序） low[u]：能回溯到的最早时间戳  low[u] 的更新：  初始化：low[u] &#x3D; dfn[u] 树边 u → v（u &#x3D; fa(v)）：回溯时更新，low[v] 已知low[u] &#x3D; min(low[u], low[v]) 非树边 (u, v) ∉ dfs_tree：low[u] &#x3D; min(low[u], dfn[v])   以下内容注重">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://oiwiki.com/graph/images/dfs-tree.svg">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/o9pt519w.png">
+<meta property="article:published_time" content="2026-10-31T04:20:29.000Z">
+<meta property="article:modified_time" content="2026-10-31T04:23:50.983Z">
+<meta property="article:author" content="EvanGe">
+<meta property="article:tag" content="SCC">
+<meta property="article:tag" content="Tarjan">
+<meta property="article:tag" content="eDCC">
+<meta property="article:tag" content="vDCC">
+<meta property="article:tag" content="割点割边">
+<meta property="article:tag" content="图论">
+<meta property="article:tag" content="缩点">
+<meta property="article:tag" content="连通性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://oiwiki.com/graph/images/dfs-tree.svg">
+
+
+<link rel="canonical" href="https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/","path":"2026/10/31/Tarjan大家族/","title":"Tarjan大家族"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Tarjan大家族 | GeEvan's Blog——我的一张真值表</title>
+  
+
+
+
+
+
+
+
+
+  
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  <script src="https://cdnjs.loli.net/ajax/libs/hexo-generator-searchdb/1.5.0/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<meta name="baidu-site-verification" content="codeva-Xz9u8tPab0" />
+<link rel="stylesheet" href="/assets/theme-switcher.css">
+<link rel="stylesheet" href="/assets/subscribe.css">
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="GeEvan's Blog——我的一张真值表" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">GeEvan's Blog——我的一张真值表</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">3</span></a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">基本变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%B2%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">割点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%B2%E8%BE%B9"><span class="nav-number">3.</span> <span class="nav-text">割边</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%EF%BC%88SCC%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">强连通分量（SCC）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SCC-%E7%BC%A9%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">SCC 缩点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%EF%BC%88eDCC%EF%BC%89"><span class="nav-number">6.</span> <span class="nav-text">边双连通分量（eDCC）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">定理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#eDCC-%E7%BC%A9%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">eDCC 缩点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%EF%BC%88vDCC%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">点双连通分量（vDCC）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Thm1-%E4%BB%BB%E6%84%8F%E5%89%B2%E7%82%B9-in-%E8%87%B3%E5%B0%91-2-%E4%B8%AA-vDCC-%E4%B8%AD%EF%BC%88%E8%A3%82%E7%82%B9%EF%BC%89"><span class="nav-number">8.1.</span> <span class="nav-text">Thm1 任意割点 $\in$ 至少 2 个 vDCC 中（裂点）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lemma-2-%E4%B8%AA-vDCC-%E8%87%B3%E5%A4%9A-1-%E4%B8%AA%E5%85%AC%E5%85%B1%E7%82%B9"><span class="nav-number">8.2.</span> <span class="nav-text">Lemma 2 个 vDCC 至多 1 个公共点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thm2-%E9%9D%9E%E5%89%B2%E7%82%B9%E6%9C%80%E5%A4%9A%E5%8F%AA%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%82%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%E5%86%85"><span class="nav-number">8.3.</span> <span class="nav-text">Thm2 非割点最多只在一个点双连通分量内</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thm3-%E4%B8%80%E5%BC%A0%E6%97%A0%E5%90%91%E5%9B%BE%E6%98%AF%E7%82%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%9B%BE%EF%BC%8C%E5%BD%93%E4%B8%94%E4%BB%85%E5%BD%93%E6%BB%A1%E8%B6%B3%E4%B8%8B%E5%88%97%E4%B8%A4%E4%B8%AA%E6%9D%A1%E4%BB%B6%E4%B9%8B%E4%B8%80%EF%BC%9A"><span class="nav-number">8.4.</span> <span class="nav-text">Thm3 一张无向图是点双连通图，当且仅当满足下列两个条件之一：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B8%E4%BE%8B"><span class="nav-number">9.</span> <span class="nav-text">典例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P7687-CEOI2005-Critical-Network-Lines"><span class="nav-number">9.1.</span> <span class="nav-text">P7687 [CEOI2005] Critical Network Lines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2341-USACO03FALL-HAOI2006-%E5%8F%97%E6%AC%A2%E8%BF%8E%E7%9A%84%E7%89%9B-G"><span class="nav-number">9.2.</span> <span class="nav-text">P2341 [USACO03FALL &#x2F; HAOI2006] 受欢迎的牛 G</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">EvanGe</p>
+  <div class="site-description" itemprop="description">Cast a cold eye on life, on death<br>有关科技，有关自由，有关美。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+<div class="site-subscribe">
+  <div class="site-subscribe-head">
+    <i class="fa fa-envelope site-subscribe-icon" aria-hidden="true"></i>
+    <span class="site-subscribe-title">订阅更新</span>
+  </div>
+  <p class="site-subscribe-desc">留下邮箱，新文章发布时第一时间送达。</p>
+  <ol class="site-subscribe-steps">
+    <li>输入你的常用邮箱</li>
+    <li>点击「订阅」前往确认页</li>
+    <li>查收验证邮件并点击确认链接</li>
+  </ol>
+  <form class="site-subscribe-form" action="https://api.follow.it/subscription-form/OWl2ZVVuMHNxeHJzTVN0Zlo4blpIcmRwRjZyN2N5d0FXWXl6WUZSY2ZPNFJtRXpqL3ZMRDB4RlR3QWY1c0J4bFVGamJDQWIzSDJ1NWVsQ21PT0J6eDBlTFU5SVVWZGpUWkY3VGNiYUFNdXRqVEx0bWNYQ2MyQ3hQTjhjWTNybHF8OVNuZlJqZlBFRnEzMFpSNmNLS1NvSGpRM2pPMFFGc1kvcjI4aHg5anBXMD0=/8" method="post">
+    <label class="site-subscribe-sr" for="sidebar-subscribe-email">邮箱地址</label>
+    <input class="site-subscribe-input" id="sidebar-subscribe-email" type="email" name="email"
+           placeholder="your@email.com" required autocomplete="email" inputmode="email" spellcheck="false">
+    <button class="site-subscribe-btn" type="submit">订阅</button>
+  </form>
+  <p class="site-subscribe-note">由 Follow.it 提供邮件推送，可随时退订。</p>
+  <a class="site-subscribe-rss" href="/atom.xml">
+    <i class="fa fa-rss" aria-hidden="true"></i> 通过 RSS 订阅
+  </a>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="EvanGe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeEvan's Blog——我的一张真值表">
+      <meta itemprop="description" content="Cast a cold eye on life, on death<br>有关科技，有关自由，有关美。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Tarjan大家族 | GeEvan's Blog——我的一张真值表">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tarjan大家族
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-10-31 12:20:29 / 修改时间：12:23:50" itemprop="dateCreated datePublished" datetime="2026-10-31T12:20:29+08:00">2026-10-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="基本变量"><a href="#基本变量" class="headerlink" title="基本变量"></a>基本变量</h2><ul>
+<li><code>dfn[u]</code>：搜索时间戳（DFS 序）</li>
+<li><code>low[u]</code>：能回溯到的最早时间戳</li>
+</ul>
+<p><code>low[u]</code> 的更新：</p>
+<ol>
+<li>初始化：<code>low[u] = dfn[u]</code></li>
+<li>树边 <code>u → v</code>（<code>u = fa(v)</code>）：回溯时更新，<code>low[v]</code> 已知<br><code>low[u] = min(low[u], low[v])</code></li>
+<li>非树边 <code>(u, v) ∉ dfs_tree</code>：<br><code>low[u] = min(low[u], dfn[v])</code></li>
+</ol>
+<blockquote>
+<p><strong>以下内容注重算法和代码，基本概念定义请自行搜索了解。</strong></p>
+</blockquote>
+<hr>
+<h2 id="割点"><a href="#割点" class="headerlink" title="割点"></a>割点</h2><ul>
+<li><strong>判定法则</strong>：<code>dfn[u] &lt;= low[v]</code>，其中 <code>v</code> 为搜索树上 <code>u</code> 的子节点。特别地，<code>u = root</code> 时，需子节点 <code>v1, v2</code> 均满足。</li>
+<li><strong>证明</strong>：考虑包含 <code>(u, v)</code> 的环结构。若 <code>u</code> 为割点（环顶），则仅当 <code>(x, v)</code> 一定包含 <code>(u, v)</code>，即外点 <code>x</code> 到达 <code>v</code> 必须晚于到 <code>u</code>，<code>u</code> 为必经关卡。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e5</span><span class="number">+5</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[N];</span><br><span class="line"><span class="comment">//priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt;&gt; cv; </span></span><br><span class="line"><span class="type">bool</span> cv[N]; </span><br><span class="line"><span class="type">int</span> n,m,dfn[N],low[N],cnt<span class="comment">/*,son*/</span>,i,ans;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++cnt;</span><br><span class="line">	<span class="type">int</span> son=<span class="number">0</span>;<span class="comment">//debug1:应该定义为局部变量，防止tarjan(v)中son值被改变</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:g[u])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])<span class="comment">//v未遍历</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);<span class="comment">//需要low[v]，所以要先深搜v，再更新low[u] </span></span><br><span class="line">			<span class="keyword">if</span>(low[v]&gt;=dfn[u])<span class="comment">//鉴定为割点 </span></span><br><span class="line">			&#123;</span><br><span class="line">				son++;</span><br><span class="line">				<span class="comment">//u==i即u为根节点，那就要至少两个子节点是割点（son&gt;1)才满足割点条件 </span></span><br><span class="line">				<span class="keyword">if</span>(u!=i||son&gt;<span class="number">1</span>) cv[u]=<span class="number">1</span>;<span class="comment">//cv.push(u); debug2:一个点可能会被判多次割点，队列里会有重点（虽然可以强行去重但太麻烦了） </span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; </span><br><span class="line">		<span class="keyword">else</span> low[u]=<span class="built_in">min</span>(low[u],dfn[v]); <span class="comment">//回溯，用非搜索树上边更新</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">while</span>(m--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		g[x].<span class="built_in">push_back</span>(&#123;y&#125;);</span><br><span class="line">		g[y].<span class="built_in">push_back</span>(&#123;x&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) <span class="built_in">tarjan</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(cv[i]) ans++;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;ans&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(cv[i]) cout&lt;&lt;i&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">//cout&lt;&lt;cv.size()&lt;&lt;&#x27;\n&#x27;;</span></span><br><span class="line">	<span class="comment">//while(cv.size()) cout&lt;&lt;cv.top()&lt;&lt;&#x27; &#x27;,cv.pop();</span></span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="割边"><a href="#割边" class="headerlink" title="割边"></a>割边</h2><p><strong>P1656 炸铁路</strong></p>
+<ul>
+<li><strong>判定法则</strong>：<code>dfn[u] &lt; low[v]</code>，其中 <code>v</code> 为搜索树上 <code>u</code> 的子节点（不能取等，否则如果有重边则割边之后仍连通）。</li>
+<li>虽然是按点深搜，但其实是在遍历边。故不能走反边。</li>
+<li><strong>如何标记反边？</strong><ol>
+<li>序号标记，使正反边的序号满足成对一一映射。用 <code>x ^ 1 = y</code>。则 <code>(x, y)</code> 为相邻的奇数和偶数，例如 <code>(2, 3)</code>：<code>2 ^ 1 = 3</code>，<code>3 ^ 1 = 2</code>。</li>
+<li>标记父节点（无法处理重边）。</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">151</span>,M=<span class="number">5</span>*<span class="number">1e3</span><span class="number">+5</span>;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span>&#123;</span><br><span class="line">	<span class="type">int</span> a,b;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;Edge&gt; e;<span class="comment">//注意存图方式 e存边</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[N];<span class="comment">//g存节点→对应边的序号</span></span><br><span class="line"><span class="type">int</span> tot,cnt,len;</span><br><span class="line"><span class="type">int</span> n,m,dfn[N],low[N];</span><br><span class="line">Edge bridge[M];</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">cmp</span><span class="params">(Edge x,Edge y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x.a==y.a) <span class="keyword">return</span> x.b&lt;y.b;</span><br><span class="line">	<span class="keyword">return</span> x.a&lt;y.a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u,<span class="type">int</span> in_edge)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[u]=low[u]=++tot;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> id:g[u])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> v=e[id].b;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v,id);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>(dfn[u]&lt;low[v])</span><br><span class="line">			&#123;</span><br><span class="line">				bridge[++len]=&#123;<span class="built_in">min</span>(u,v),<span class="built_in">max</span>(u,v)&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="comment">//如果回溯时不是反边</span></span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(id!=(in_edge^<span class="number">1</span>)) low[u]=<span class="built_in">min</span>(low[u],dfn[v]);</span><br><span class="line">		<span class="comment">//debug1:优先级^较低，记得加括号</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		e.<span class="built_in">push_back</span>(&#123;y,x&#125;),g[y].<span class="built_in">push_back</span>(e.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">		e.<span class="built_in">push_back</span>(&#123;x,y&#125;),g[x].<span class="built_in">push_back</span>(e.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">tarjan</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">sort</span>(bridge<span class="number">+1</span>,bridge<span class="number">+1</span>+len,cmp);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=len;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout&lt;&lt;bridge[i].a&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;bridge[i].b&lt;&lt;<span class="string">&#x27;\n&#x27;</span>; </span><br><span class="line">	&#125;</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="强连通分量（SCC）"><a href="#强连通分量（SCC）" class="headerlink" title="强连通分量（SCC）"></a>强连通分量（SCC）</h2><p> <del>由 OI WIKI</del>,<br>在有向图 $G$ 中，如果两个顶点间至少存在一条路径，称两个<strong>顶点强连通</strong>（strongly connected）。如果有向图 $G$ 的每两个顶点都强连通，称 $G$ 是一个<strong>强连通图</strong>。非强连通图有向图的极大强连通子图，称为<strong>强连通分量</strong>（strongly connected components）。</p>
+<p>对于一个这样的 DFS 搜索树：</p>
+<p><img src="https://oiwiki.com/graph/images/dfs-tree.svg"></p>
+<ol>
+<li><strong>树边</strong>（tree edge）：示意图中以黑色边表示，每次搜索找到一个还没有访问过的结点的时候就形成了一条树边。</li>
+<li><strong>反祖边</strong>（back edge）：示意图中以红色边表示（即 $7 \rightarrow 1$），也被叫做回边，即指向祖先结点的边。</li>
+<li><strong>横叉边</strong>（cross edge）：示意图中以蓝色边表示（即 $9 \rightarrow 7$），它主要是在搜索的时候遇到了一个已经访问过的结点，但是这个结点并不是当前结点的祖先。</li>
+<li><strong>前向边</strong>（forward edge）：示意图中以绿色边表示（即 $3 \rightarrow 6$），它是在搜索的时候遇到子树中的结点的时候形成的。</li>
+</ol>
+<p>反祖边（横叉边可能）$\to$ 环 $\to$ SCC。</p>
+<p>所以对于一个 SCC，肯定含至少一个环，取环顶编号 $u$ 为特征值。（<code>low[u] = dfn[u]</code>，因为环内最小编号，<code>low</code> 值不更新）</p>
+<p>在搜索树上表现为：如果结点 $u$ 是某个强连通分量在搜索树中遇到的第一个结点，那么这个强连通分量的其余结点肯定是在搜索树中以 $u$ 为根的子树中。结点 $u$ 被称为这个<strong>强连通分量的根</strong>。比如上图 $1 \rightarrow 2 \rightarrow 7 \rightarrow 1$ 的根就是 $1$，且 <code>low[1,2,7] = 1</code>。</p>
+<ul>
+<li><p><strong>why 存 SCC 用栈？</strong></p>
+<p>环顶先访问，其余 SCC 的点后访问。绕环走一圈回到环顶，即环顶的函数空间即将退出时，栈内已逆序存储了 SCC 内所有点。此时，弹出并记录即可。</p>
+<p>本质：DFS 就是<strong>栈的先进后出</strong>思想体现。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; g[M];</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line"><span class="type">int</span> n,m,cnt,tot;                                </span><br><span class="line"><span class="type">int</span> scc[N],siz[N],dfn[N],low[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;        </span><br><span class="line">	dfn[u]=low[u]=++tot;</span><br><span class="line">	s.<span class="built_in">push</span>(u);	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> v:g[u])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])  </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(v);</span><br><span class="line">			low[u]=<span class="built_in">min</span>(low[u],low[v]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!scc[v]) low[u]=<span class="built_in">min</span>(low[u],dfn[v]);</span><br><span class="line">		<span class="comment">/*debug1:+if(*) 去掉这个条件会导致有两个连通块的话，只有先dfs的那个答案是对的。设连通块b1,b2。</span></span><br><span class="line"><span class="comment">若b2→b1,就会用b1的dfn来更新b2的low，导致low值变小。让每个连通块dfs前重新更新dfn就行 if(!dfn[i]) tot=0,tarjan(i);不行 并不保证b2的dfn一定比b1的low小*/</span></span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="keyword">if</span>(dfn[u]==low[u])<span class="comment">//u为环顶</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x;cnt++;</span><br><span class="line">		<span class="keyword">do</span>&#123; <span class="comment">//直接用while会导致少了最后一次循环,环顶u无法弹出</span></span><br><span class="line">			x=s.<span class="built_in">top</span>();</span><br><span class="line">			s.<span class="built_in">pop</span>(); </span><br><span class="line">			scc[x]=cnt;</span><br><span class="line">			siz[cnt]++;</span><br><span class="line">		&#125;<span class="keyword">while</span>(x!=u);<span class="comment">//debug2.(segf) s.top()!=u ×s.pop()后top()!=x </span></span><br><span class="line">	&#125;														</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="SCC-缩点"><a href="#SCC-缩点" class="headerlink" title="SCC 缩点"></a>SCC 缩点</h2><p>其实就是 SCC 的应用。将每个 SCC 缩成点，原图就变成了 DAG，有关于出入度等特殊性质。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3387">P3387 【模板】缩点</a></p>
+<p>直接进行 DFS 的话，就会在环那里转圈耗时过长（因为可重复经过，不能用 <code>vis</code> 标记）。类似题有 DAG 的最长路径，一个做法利用其无后效性 DP。如何将该题的有环图 $\to$ 无环图？缩点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e6</span><span class="number">+5</span>,M=<span class="number">1e5</span><span class="number">+5</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[M];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[M];</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;	</span><br><span class="line"><span class="type">int</span> n,m,cnt,tot;</span><br><span class="line"><span class="type">int</span> dfn[N],low[N],w[N],dp[N],scc[N],a[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//debug:厌氧 考虑UB... int tarjan × </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[x]=low[x]=++tot;</span><br><span class="line">	s.<span class="built_in">push</span>(x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> y:g[x])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[y]) </span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(y);</span><br><span class="line">			low[x]=<span class="built_in">min</span>(low[y],low[x]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!scc[y]) low[x]=<span class="built_in">min</span>(low[x],dfn[y]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dfn[x]==low[x])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> y;cnt++;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			y=s.<span class="built_in">top</span>();s.<span class="built_in">pop</span>();</span><br><span class="line">			scc[y]=cnt;</span><br><span class="line">			w[cnt]+=a[y];</span><br><span class="line">		&#125;<span class="keyword">while</span>(y!=x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) cin&gt;&gt;a[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		g[x].<span class="built_in">push_back</span>(&#123;y&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)<span class="comment">//debug: n m不分。。</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) <span class="comment">/*tot=0,*/</span><span class="built_in">tarjan</span>(i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//缩点 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> v:g[u])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(scc[v]!=scc[u]) e[scc[u]].<span class="built_in">push_back</span>(&#123;scc[v]&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> u=cnt;u&gt;=<span class="number">1</span>;u--)<span class="comment">//因为tarjan求出的SCC是逆DFS序的，所以这里要逆序dp从起点出发 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dp[u]) dp[u]=w[u];<span class="comment">//u为起点</span></span><br><span class="line">		<span class="comment">//else × 否则任意dp[u]=0</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> v:e[u]) </span><br><span class="line">		    dp[v]=<span class="built_in">max</span>(dp[u]+w[v],dp[v]);</span><br><span class="line">	&#125;		</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> u=<span class="number">1</span>;u&lt;=cnt;u++)  dp[<span class="number">0</span>]=<span class="built_in">max</span>(dp[<span class="number">0</span>],dp[u]);</span><br><span class="line">    cout&lt;&lt;dp[<span class="number">0</span>]; </span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="边双连通分量（eDCC）"><a href="#边双连通分量（eDCC）" class="headerlink" title="边双连通分量（eDCC）"></a>边双连通分量（eDCC）</h2><p><strong>边双连通图</strong>：不含割边的无向连通图。</p>
+<p><strong>边双连通分量</strong>：极大边双连通子图。极大 $:&#x3D;$ 不存在完全包含该图（点和边）的边双连通子图。</p>
+<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>$$<br>\text{边双连通图} \iff \forall e,\ e \in \text{简单环（不自交的环）}<br>$$</p>
+<p><strong>证明</strong>：</p>
+<ul>
+<li><strong>充分性</strong>：$\forall x,y \in V$，$(x,y)$ 有 2 条。删除任意一条边，$(x,y) \ge 1$ 条，不符合割边定义。</li>
+<li><strong>必要性</strong>：不含割边，即 $\forall x,y \in V$，$(x,y)$ 至少有 2 条（否则路径上所有边都为割边），显然满足环的定义。</li>
+</ul>
+<p>算法：类似 SCC。由定理，其实就是在无向图上求环。</p>
+<ul>
+<li><p><strong>why 排除反边？</strong></p>
+<p>注意到如果能走反边，任意两个相连的点都成了有向图意义下的环，当然不行。</p>
+<p>（这点使得代码类似 SCC + 割边）</p>
+</li>
+</ul>
+<p><strong>P8436 【模板】边双连通分量</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">5</span>*<span class="number">1e5</span><span class="number">+5</span>,M=<span class="number">2</span>*<span class="number">1e6</span><span class="number">+5</span>;</span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; &gt; e;<span class="comment">//注意存图方式 e存边</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[N];<span class="comment">//g存节点→对应边的序号</span></span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; edcc[N];<span class="comment">//编号→包含的点</span></span><br><span class="line"><span class="type">int</span> n,m,tot,cnt,dfn[N],low[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> in_edge)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[x]=low[x]=++tot;</span><br><span class="line">	s.<span class="built_in">push</span>(x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> id:g[x])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> y=e[id].second;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[y])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(y,id);</span><br><span class="line">			low[x]=<span class="built_in">min</span>(low[x],low[y]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(id!=(in_edge^<span class="number">1</span>)) low[x]=<span class="built_in">min</span>(low[x],dfn[y]);<span class="comment">//排除反边</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dfn[x]==low[x])<span class="comment">//环顶 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> y;cnt++;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			y=s.<span class="built_in">top</span>();s.<span class="built_in">pop</span>();</span><br><span class="line">			edcc[cnt].<span class="built_in">push_back</span>(y); </span><br><span class="line">		&#125;<span class="keyword">while</span>(y!=x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		e.<span class="built_in">push_back</span>(&#123;y,x&#125;),g[y].<span class="built_in">push_back</span>(e.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">		e.<span class="built_in">push_back</span>(&#123;x,y&#125;),g[x].<span class="built_in">push_back</span>(e.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) </span><br><span class="line">	    <span class="keyword">if</span>(!dfn[i]) <span class="built_in">tarjan</span>(i,<span class="number">0</span>);</span><br><span class="line">	cout&lt;&lt;cnt&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout&lt;&lt;edcc[i].<span class="built_in">size</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> u:edcc[i]) cout&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;u;</span><br><span class="line">		cout&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="eDCC-缩点"><a href="#eDCC-缩点" class="headerlink" title="eDCC 缩点"></a>eDCC 缩点</h2><p>SCC 缩点，得到 DAG。</p>
+<p>eDCC 缩点 $\to$ 树&#x2F;森林（因为满足每两个点间存在唯一路径）。</p>
+<p>利用树的性质构造答案。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2860">P2860 [USACO06JAN] Redundant Paths G</a></p>
+<p>路径问题，考虑边双缩点。由定理，eDCC 里的不用加边，只需考虑割边。</p>
+<p>问题转化为：树 $\to$ 每个点 $\in$ 一个简单环 的最短加边数。<br>连接叶子节点，可以连接在它上面的所有点形成环，显然最优。<br>对树的叶子节点数分奇偶讨论，尽可能两两配对，画几个图找规律即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//链式前向星写法 判反边稍微简单一些</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>  f(i,l,r) for(int i=l;i&lt;=r;i++)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N 10000+5</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n,m,cnt,num;</span><br><span class="line"><span class="type">int</span> ver[<span class="number">2</span>*N],nxt[<span class="number">2</span>*N],head[<span class="number">2</span>*N],tot=<span class="number">1</span>;<span class="comment">//debug:从2，3开始配对 因为0号边被占用了 1^1=0</span></span><br><span class="line"><span class="type">int</span> dfn[N],low[N],deg[N],c[N];</span><br><span class="line"><span class="type">bool</span> bri[N];</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line"><span class="comment">//vector&lt;int&gt; edcc[N];</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">	ver[++tot]=y,nxt[tot]=head[x],head[x]=tot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[x]=low[x]=++cnt;</span><br><span class="line">	s.<span class="built_in">push</span>(x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=head[x]<span class="comment">/*,y=ver[i]*/</span>;i;i=nxt[i])<span class="comment">//debug:在for里只能定义初始值</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> y=ver[i];</span><br><span class="line">		<span class="keyword">if</span>(!dfn[y])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(y,i);</span><br><span class="line">			low[x]=<span class="built_in">min</span>(low[x],low[y]);</span><br><span class="line">			<span class="keyword">if</span>(low[y]&gt;dfn[x]) bri[i]=bri[i^<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(i!=(e^<span class="number">1</span>)) low[x]=<span class="built_in">min</span>(low[x],dfn[y]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[x]==dfn[x])<span class="comment">//环顶</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> y;++num;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			y=s.<span class="built_in">top</span>();</span><br><span class="line">			s.<span class="built_in">pop</span>();</span><br><span class="line">			<span class="comment">//edcc[num].push_back(y);</span></span><br><span class="line">			c[y]=num;</span><br><span class="line">		&#125;<span class="keyword">while</span>(y!=x);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>); </span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="built_in">f</span>(i,<span class="number">1</span>,m)	</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		<span class="built_in">add</span>(x,y),<span class="built_in">add</span>(y,x);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//	f(i,1,n) debug2:每对草场之间已经有至少一条路径 保证联通图</span></span><br><span class="line"><span class="comment">//		if(!dfn[i]) </span></span><br><span class="line">	<span class="built_in">tarjan</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">2</span>;i&lt;=tot;i+=<span class="number">2</span>)</span><br><span class="line">		<span class="keyword">if</span>(bri[i]) deg[c[ver[i]]]++,deg[c[ver[i^<span class="number">1</span>]]]++;</span><br><span class="line">	<span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">f</span>(i,<span class="number">1</span>,num)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(deg[i]==<span class="number">1</span>) sum++;<span class="comment">//统计叶子节点数</span></span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;(sum<span class="number">+1</span>)/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="点双连通分量（vDCC）"><a href="#点双连通分量（vDCC）" class="headerlink" title="点双连通分量（vDCC）"></a>点双连通分量（vDCC）</h2><p>类比边双定义：</p>
+<ul>
+<li><strong>点双连通图</strong>：不含<strong>割点</strong>的无向连通图。</li>
+<li><strong>点双连通分量</strong>（vDCC）：极大点双连通子图。</li>
+</ul>
+<h3 id="Thm1-任意割点-in-至少-2-个-vDCC-中（裂点）"><a href="#Thm1-任意割点-in-至少-2-个-vDCC-中（裂点）" class="headerlink" title="Thm1 任意割点 $\in$ 至少 2 个 vDCC 中（裂点）"></a>Thm1 任意割点 $\in$ 至少 2 个 vDCC 中（裂点）</h3><p><strong>证明</strong>：去掉任意一个割点 $x$，图至少会分裂成两个连通子图。每个连通子图去掉自己的割点，直接与割点 $x$ 相连的部分显然可以合并成一个 vDCC。</p>
+<h3 id="Lemma-2-个-vDCC-至多-1-个公共点"><a href="#Lemma-2-个-vDCC-至多-1-个公共点" class="headerlink" title="Lemma 2 个 vDCC 至多 1 个公共点"></a>Lemma 2 个 vDCC 至多 1 个公共点</h3><p><strong>证明</strong>：若 2 个，则 2 个点都可作为割点，可以合并成一个 vDCC。</p>
+<h3 id="Thm2-非割点最多只在一个点双连通分量内"><a href="#Thm2-非割点最多只在一个点双连通分量内" class="headerlink" title="Thm2 非割点最多只在一个点双连通分量内"></a>Thm2 非割点最多只在一个点双连通分量内</h3><p><strong>证明</strong>：反设只有（Lemma）一个非割点 $x$ 在 2 个 vDCC 中。由于非割点，去掉 $x$ 后 2 个 vDCC 仍连通，可以合并。矛盾。</p>
+<h3 id="Thm3-一张无向图是点双连通图，当且仅当满足下列两个条件之一："><a href="#Thm3-一张无向图是点双连通图，当且仅当满足下列两个条件之一：" class="headerlink" title="Thm3 一张无向图是点双连通图，当且仅当满足下列两个条件之一："></a>Thm3 一张无向图是点双连通图，当且仅当满足下列两个条件之一：</h3><p>(1) 图的顶点数不超过 2；</p>
+<p>(2) 图中任意两点都同时包含在<strong>至少一个简单环</strong>中。其中“简单环”指的是不自交的环，也就是我们通常画出的环。</p>
+<p><strong>证明</strong>：</p>
+<p>（1）显然。</p>
+<p>（2）<strong>充分性</strong>：有环就有两条路，使一条路上割掉点 $p$，两点仍以另一条连通。排除 $p$ 是割点。</p>
+<p><strong>必要性</strong>：反证法。</p>
+<ol>
+<li>不是环？$(x,y)$ 要是一条路，路上都是割点。</li>
+<li>自交？交点成割点。<br><img src="https://cdn.luogu.com.cn/upload/image_hosting/o9pt519w.png"></li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/909095">关于根节点的入栈问题解释</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/659881?page=1">关于出栈另一种写法的问题解释</a></p>
+<p>算法：</p>
+<ol>
+<li>进栈；</li>
+<li><code>dfn[x] &lt;= low[y]</code>，则 <code>x</code> 为割点&#x2F;根节点。由 Thm1，找 <code>y</code> 为环顶的 vDCC（具体就是弹出节点，直至 <code>y</code> 被弹出）。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">5</span>*<span class="number">1e5</span><span class="number">+5</span>,M=<span class="number">2</span>*<span class="number">1e6</span><span class="number">+5</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[N];</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; vdcc[N];</span><br><span class="line"><span class="type">int</span> n,m,tot,cnt,root,cv[N],dfn[N],low[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> x)</span><span class="comment">//由Thm3,vDCC有环,所以可以用low等信息</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[x]=low[x]=++tot;</span><br><span class="line">	s.<span class="built_in">push</span>(x);</span><br><span class="line">	<span class="keyword">if</span>(!g[x].<span class="built_in">size</span>())<span class="comment">//孤立点 由Thm3(1),一定点双</span></span><br><span class="line">	&#123;</span><br><span class="line">		vdcc[++cnt].<span class="built_in">push_back</span>(x);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> y:g[x])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[y])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(y);</span><br><span class="line">			low[x]=<span class="built_in">min</span>(low[x],low[y]);</span><br><span class="line">    		<span class="keyword">if</span>(dfn[x]&lt;=low[y])<span class="comment">//判割点 </span></span><br><span class="line">    		&#123;</span><br><span class="line">    			<span class="type">int</span> t;cnt++;</span><br><span class="line">    			<span class="keyword">do</span>&#123;</span><br><span class="line">    				t=s.<span class="built_in">top</span>();s.<span class="built_in">pop</span>();<span class="comment">//由Thm2,直接出栈</span></span><br><span class="line">    				vdcc[cnt].<span class="built_in">push_back</span>(t); </span><br><span class="line">    			&#125;<span class="keyword">while</span>(t!=y);</span><br><span class="line">    			vdcc[cnt].<span class="built_in">push_back</span>(x);<span class="comment">//x割点：由Thm1裂点，加入多个vdcc,不能出栈.</span></span><br><span class="line">    		&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>  low[x]=<span class="built_in">min</span>(low[x],dfn[y]);<span class="comment">//无if?由Thm3(1),可走反边,2点也成vDCC</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">while</span>(m--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		<span class="keyword">if</span>(x==y) <span class="keyword">continue</span>;<span class="comment">//debug1:判重边（普通重边对答案无贡献，自环则dfn[x]!=0无法进行出栈过程）</span></span><br><span class="line">		g[x].<span class="built_in">push_back</span>(&#123;y&#125;);</span><br><span class="line">		g[y].<span class="built_in">push_back</span>(&#123;x&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(root=<span class="number">1</span>;root&lt;=n;root++) </span><br><span class="line">	    <span class="keyword">if</span>(!dfn[root]) <span class="built_in">tarjan</span>(root);</span><br><span class="line">	cout&lt;&lt;cnt&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout&lt;&lt;vdcc[i].<span class="built_in">size</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> u:vdcc[i]) cout&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;u;</span><br><span class="line">		cout&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="典例"><a href="#典例" class="headerlink" title="典例"></a>典例</h2><h3 id="P7687-CEOI2005-Critical-Network-Lines"><a href="#P7687-CEOI2005-Critical-Network-Lines" class="headerlink" title="P7687 [CEOI2005] Critical Network Lines"></a>P7687 [CEOI2005] Critical Network Lines</h3><p>删掉该路图会不连通，所以为割边。筛出符合的即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e5</span><span class="number">+5</span>,M=<span class="number">1e6</span><span class="number">+5</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[N];</span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; &gt; e;</span><br><span class="line"><span class="type">int</span> n,m,k,l,tot,cnt;</span><br><span class="line"><span class="type">int</span> low[N],dfn[N],cv[N],cnl[M],a[N],b[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	e.<span class="built_in">push_back</span>(&#123;x,y&#125;);</span><br><span class="line">	g[x].<span class="built_in">push_back</span>(e.<span class="built_in">size</span>()<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> in_edge)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[x]=low[x]=++tot;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> id:g[x])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> y=e[id].second;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[y])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">tarjan</span>(y,id);</span><br><span class="line">			low[x]=<span class="built_in">min</span>(low[x],low[y]);</span><br><span class="line">			<span class="keyword">if</span>(dfn[x]&lt;low[y]) </span><br><span class="line">			&#123;</span><br><span class="line">			    <span class="comment">//cout&lt;&lt;dfn[x]&lt;&lt;&#x27; &#x27;&lt;&lt;low[y]&lt;&lt;endl;</span></span><br><span class="line">			    <span class="comment">//cout&lt;&lt;x&lt;&lt;&#x27; &#x27;&lt;&lt;y&lt;&lt;&#x27; &#x27;&lt;&lt;a[y]&lt;&lt;&#x27; &#x27;&lt;&lt;b[y]&lt;&lt;endl;</span></span><br><span class="line">				<span class="keyword">if</span>(!a[y]||!b[y]||a[y]==k||b[y]==l) cnl[++cnt]=id;<span class="comment">//如果搜索子树里全是特殊点/子树里无特殊点 ，此时图就会分成两个连通块，不含特殊点的就无法访问服务</span></span><br><span class="line">			&#125;</span><br><span class="line">			a[x]+=a[y];b[x]+=b[y];<span class="comment">//向上更新特殊点个数</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(id!=(in_edge^<span class="number">1</span>)) low[x]=<span class="built_in">min</span>(low[x],dfn[y]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m&gt;&gt;k&gt;&gt;l;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=k;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x;  </span><br><span class="line">		cin&gt;&gt;x;</span><br><span class="line">		a[x]=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=l;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		cin&gt;&gt;x;</span><br><span class="line">		b[x]=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		<span class="built_in">add</span>(x,y),<span class="built_in">add</span>(y,x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">tarjan</span>(<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	cout&lt;&lt;cnt&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">		cout&lt;&lt;e[cnl[i]].first&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;e[cnl[i]].second&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="P2341-USACO03FALL-HAOI2006-受欢迎的牛-G"><a href="#P2341-USACO03FALL-HAOI2006-受欢迎的牛-G" class="headerlink" title="P2341 [USACO03FALL &#x2F; HAOI2006] 受欢迎的牛 G"></a>P2341 [USACO03FALL &#x2F; HAOI2006] 受欢迎的牛 G</h3><p>喜欢它等价于可达它。</p>
+<p>任意一个 SCC 内点都是互相可达的，属于同一类点。<del>真正的三角恋</del></p>
+<p>考虑缩点，那么 Cow Star 显然就是新图唯一的叶子结点（出度为 0）。因为每个新点都可到达它。</p>
+<p>不唯一则叶子结点间不互相可达。无 cow star。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1e4</span><span class="number">+5</span>;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; g[N];</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; e[N];</span><br><span class="line">stack&lt;<span class="type">int</span>&gt; s;</span><br><span class="line"><span class="type">int</span> n,m,cnt,tot;</span><br><span class="line"><span class="type">int</span> dfn[N],low[N],scc[N],siz[N],deg[N];<span class="comment">//deg：缩点后出度 </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tarjan</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	dfn[x]=low[x]=++tot;</span><br><span class="line">	s.<span class="built_in">push</span>(x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> y:g[x])</span><br><span class="line">	&#123;</span><br><span class="line">	    <span class="keyword">if</span>(!dfn[y])</span><br><span class="line">	    &#123;</span><br><span class="line">	        <span class="built_in">tarjan</span>(y);</span><br><span class="line">		    low[x]=<span class="built_in">min</span>(low[x],low[y]);</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">else</span> <span class="keyword">if</span>(!scc[y]) low[x]=<span class="built_in">min</span>(low[x],dfn[y]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[x]==dfn[x])</span><br><span class="line">	&#123;	</span><br><span class="line">		<span class="type">int</span> y;cnt++;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			y=s.<span class="built_in">top</span>();s.<span class="built_in">pop</span>();</span><br><span class="line">			scc[y]=cnt;</span><br><span class="line">			siz[cnt]++;</span><br><span class="line">		&#125;<span class="keyword">while</span>(y!=x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;   </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::<span class="built_in">sync_with_stdio</span>(<span class="number">0</span>);</span><br><span class="line">	cin.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cout.<span class="built_in">tie</span>(<span class="number">0</span>);</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> x,y;</span><br><span class="line">		cin&gt;&gt;x&gt;&gt;y;</span><br><span class="line">		g[x].<span class="built_in">push_back</span>(y);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//tarjan(1);</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!dfn[i]) </span><br><span class="line">		&#123;</span><br><span class="line">		    <span class="built_in">tarjan</span>(i);</span><br><span class="line">			<span class="comment">//cout&lt;&lt;0;	别像我一样想当然以为这样判出不连通就输出0. 因为1也可能是明星...</span></span><br><span class="line">			<span class="comment">//return 0;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> x=<span class="number">1</span>;x&lt;=n;x++)<span class="comment">//缩点后统计出度</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> y:g[x])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="type">int</span> a=scc[x],b=scc[y];</span><br><span class="line">			<span class="keyword">if</span>(a!=b) deg[a]++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="type">int</span> ans=<span class="number">0</span>,ed=<span class="number">0</span>;<span class="comment">//ans:叶子节点数，ed：叶子结点编号</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=cnt;i++)</span><br><span class="line">		<span class="keyword">if</span>(!deg[i]) ed=i,ans++;</span><br><span class="line">	<span class="keyword">if</span>(ans&gt;<span class="number">1</span>) cout&lt;&lt;<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span> cout&lt;&lt;siz[ed];</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<aside class="post-subscribe" aria-labelledby="post-subscribe-title">
+  <div class="post-subscribe-copy">
+    <div class="post-subscribe-title" id="post-subscribe-title">
+      <i class="fa fa-envelope" aria-hidden="true"></i>
+      订阅更新
+    </div>
+    <p class="post-subscribe-desc">留下邮箱，新文章发布时第一时间送达。</p>
+    <ol class="post-subscribe-steps">
+      <li>在下方输入你的常用邮箱</li>
+      <li>点击「订阅」跳转到 Follow.it 确认页</li>
+      <li>查收验证邮件并点击确认链接，即完成订阅</li>
+    </ol>
+  </div>
+  <form class="post-subscribe-form" action="https://api.follow.it/subscription-form/OWl2ZVVuMHNxeHJzTVN0Zlo4blpIcmRwRjZyN2N5d0FXWXl6WUZSY2ZPNFJtRXpqL3ZMRDB4RlR3QWY1c0J4bFVGamJDQWIzSDJ1NWVsQ21PT0J6eDBlTFU5SVVWZGpUWkY3VGNiYUFNdXRqVEx0bWNYQ2MyQ3hQTjhjWTNybHF8OVNuZlJqZlBFRnEzMFpSNmNLS1NvSGpRM2pPMFFGc1kvcjI4aHg5anBXMD0=/8" method="post">
+    <label class="site-subscribe-sr" for="post-subscribe-email">邮箱地址</label>
+    <input class="site-subscribe-input" id="post-subscribe-email" type="email" name="email"
+           placeholder="your@email.com" required autocomplete="email" inputmode="email" spellcheck="false">
+    <button class="site-subscribe-btn" type="submit">订阅</button>
+  </form>
+  <div class="post-subscribe-foot">
+    <span>由 Follow.it 提供邮件推送，可随时退订。</span>
+    <a href="/atom.xml"><i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+  </div>
+</aside>
+
+          <div class="reward-container">
+  <div>全国人民给我一块钱，成为亿万富翁的梦想就拜托你了（笑）</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="EvanGe 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="EvanGe 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>EvanGe
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://geevanblog.xin/2026/10/31/Tarjan%E5%A4%A7%E5%AE%B6%E6%97%8F/" title="Tarjan大家族">https://geevanblog.xin/2026/10/31/Tarjan大家族/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Tarjan/" rel="tag"># Tarjan</a>
+              <a href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag"># 图论</a>
+              <a href="/tags/%E8%BF%9E%E9%80%9A%E6%80%A7/" rel="tag"># 连通性</a>
+              <a href="/tags/%E5%89%B2%E7%82%B9%E5%89%B2%E8%BE%B9/" rel="tag"># 割点割边</a>
+              <a href="/tags/%E7%BC%A9%E7%82%B9/" rel="tag"># 缩点</a>
+              <a href="/tags/eDCC/" rel="tag"># eDCC</a>
+              <a href="/tags/vDCC/" rel="tag"># vDCC</a>
+              <a href="/tags/SCC/" rel="tag"># SCC</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/10/24/%E5%85%B3%E4%BA%8E%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E2%80%94%E2%80%94what,why,how/" rel="prev" title="关于这个博客——what,why,how">
+                  <i class="fa fa-angle-left"></i> 关于这个博客——what,why,how
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">EvanGe</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://geevan-twikoo.netlify.app/.netlify/functions/twikoo","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+<div id="theme-switcher-overlay"></div>
+<div id="theme-switcher-panel">
+  <div class="ts-header">
+    <span>切换风格</span>
+    <i class="fa fa-times ts-close" aria-hidden="true"></i>
+  </div>
+  <div class="ts-options">
+    <div class="ts-card" data-theme="simple">
+      <div class="ts-preview ts-preview-simple">
+        <div class="ts-mini-header"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70"></div>
+          <div class="ts-mini-line w50"></div>
+          <div class="ts-mini-line w60"></div>
+        </div>
+      </div>
+      <div class="ts-name">简约风</div>
+      <div class="ts-desc">无趣...</div>
+    </div>
+    <div class="ts-card" data-theme="anime">
+      <div class="ts-preview ts-preview-anime">
+        <div class="ts-mini-header pink"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70 pink"></div>
+          <div class="ts-mini-line w50 pink"></div>
+          <div class="ts-mini-line w60 pink"></div>
+        </div>
+      </div>
+      <div class="ts-name">动漫风</div>
+      <div class="ts-desc">二次元一股味</div>
+    </div>
+    <div class="ts-card" data-theme="cool">
+      <div class="ts-preview ts-preview-cool">
+        <div class="ts-mini-header neon"></div>
+        <div class="ts-mini-lines">
+          <div class="ts-mini-line w70 neon"></div>
+          <div class="ts-mini-line w50 neon"></div>
+          <div class="ts-mini-line w60 neon"></div>
+        </div>
+      </div>
+      <div class="ts-name">炫酷风</div>
+      <div class="ts-desc">嘉豪？</div>
+    </div>
+  </div>
+</div>
+<script src="/assets/theme-switcher.js" defer></script>
+
+</body>
+</html>
