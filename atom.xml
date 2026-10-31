@@ -32,7 +32,17 @@
     <summary>
       <![CDATA[<h2 id="基本变量"><a href="#基本变量" class="headerlink" title="基本变量"></a>基本变量</h2><ul>
 <li><code>dfn[u]</code>：搜索时间戳（DFS 序）</li>
-<li><code>low[u]</]]>
+<li><code>low[u]</code>：能回溯到的最早时间戳</li>
+</ul>
+<p><code>low[u]</code> 的更新：</p>
+<ol>
+<li>初始化：<code>low[u] = dfn[u]</code></li>
+<li>树边 <code>u → v</code>（<code>u = fa(v)</code>）：回溯时更新，<code>low[v]</code> 已知<br><code>low[u] = min(low[u], low[v])</code></li>
+<li>非树边 <code>(u, v) ∉ dfs_tree</code>：<br><code>low[u] = min(low[u], dfn[v])</code></li>
+</ol>
+<blockquote>
+<p><strong>以下内容注重算法和代码，基本概念定义请自行搜索了解。</strong></p>
+</blockquote>]]>
     </summary>
     <title>Tarjan大家族</title>
     <updated>2026-10-31T04:23:50.983Z</updated>
@@ -46,7 +56,9 @@
     <published>2026-10-24T15:47:09.000Z</published>
     <summary>
       <![CDATA[<h2 id="What"><a href="#What" class="headerlink" title="What?"></a>What?</h2><p>   Hi~ 朋友ヾ(•ω•&#96;)o</p>
-<p>   如你所见，这是一个博客网站，内容源于个人思考（保证内容不]]>
+<p>   如你所见，这是一个博客网站，内容源于个人思考（保证内容不会完全由 AI 生成）。</p>
+<p>  具体将包括一些<del>无技术含量</del>的技术内容和学习笔记，一些<del>日本动画片</del>文艺作品的鉴赏、杂谈与评价，一些数学计算机等各领域神秘有趣  的小 research&#x2F;skill，一些关于 zz、社会生活的观点见解，再加上我脑海里各种疯狂的想法(anything)（阅读这个博客，你就会知道，当三次元的 GeEvan 带着仿佛刚完春运的传奇机长般空洞的眼神经过你时，他的大脑正在发生什么变化……）</p>
+<p>   总之这是一个多元内容的博客，不是单纯让人Orz的题解分享&#x2F;技术分享博客。</p>]]>
     </summary>
     <title>关于这个博客——what,why,how</title>
     <updated>2026-10-24T15:47:09.701Z</updated>
