@@ -8,6 +8,7 @@ https://geevanblog.xin/2026/09/16/hello-world/
 https://geevanblog.xin/tags/index.html
 https://geevanblog.xin/categories/index.html
 https://geevanblog.xin/
+https://geevanblog.xin/tags/%E6%8E%92%E5%BA%8F/
 https://geevanblog.xin/tags/Tarjan/
 https://geevanblog.xin/tags/%E5%9B%BE%E8%AE%BA/
 https://geevanblog.xin/tags/%E8%BF%9E%E9%80%9A%E6%80%A7/
@@ -18,7 +19,6 @@ https://geevanblog.xin/tags/vDCC/
 https://geevanblog.xin/tags/SCC/
 https://geevanblog.xin/tags/Hexo/
 https://geevanblog.xin/tags/%E5%8D%9A%E5%AE%A2/
-https://geevanblog.xin/tags/%E6%8E%92%E5%BA%8F/
 https://geevanblog.xin/tags/%E6%80%AA%E7%89%A9/
 https://geevanblog.xin/tags/%E7%90%86%E8%A7%A3%E5%85%B1%E6%83%85/
 https://geevanblog.xin/tags/%E5%BC%82%E5%B7%B1/
